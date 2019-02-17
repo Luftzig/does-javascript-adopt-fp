@@ -1,0 +1,1165 @@
+= Does JavaScript Adopt Functional Programming?
+:Author: Yoav Luft
+:Email:  <yoav.luft@gmail.com>
+:Twitter: @luftyoav
+:icons: font
+:source-highlighter: highlightjs
+:customcss: custom.css
+:revealjs_history: true
+
+icon:twitter[] @luftyoav
+
+icon:envelope[] yoav.luft@gmail.com
+
+[NOTE.speaker]
+--
+Hello! My name is Yoav Luft and today I'm going to talk about whether the JavaScript community adopts functional
+programming or not. 
+
+The talk will be divided into 4 parts:
+--
+
+== Table of Contents
+
+- Why should we care about JavaScript?
+- What "adopting functional programming" even means?
+- Where is the evidence?
+- What's next?
+
+[NOTE.speaker]
+--
+
+- Why should we care about JavaScript?
+- What "adopting functional programming" even mean?
+- Where is the evidence?
+- What's next?
+
+and finally,
+--
+
+== Spoiler Alert
+
+video::images/spoilers.mp4[options="autoplay,loop,nocontrols"]
+
+[NOTE.speaker]
+--
+In case you just can't contain your curiosity, here's the short version:
+--
+
+// Hide
+=== JavaScript becomes more declarative
+
+[.fragment]
+--
+100 top projects
+--
+
+[.fragment]
+--
+
+icon:plus[]
+
+Analyzing the Code
+--
+
+[.fragment]
+--
+
+*=*
+
+JavaScript Becomes [.line-through]#Functional# Declarative
+--
+
+[NOTE.speaker]
+--
+This talk is based on a research I'm conducting on coding style in Javascript. I conduct the
+research independently but under the supervision of Prof. Feitelson from the Hebrew University of
+Jerusalem. The results that I'll show today are preliminary, and we'll be subject to more thorough
+investigation.
+
+By looking at Github's one hundred most popular javascript projects, analyzing their code and
+dependencies, I feel quite convinced that as the years go on, the Javascript community is adopting a
+more declarative programming style.
+
+How did I manage to get to this conclusion? What it has to do with functional programming, and why even look at
+javascript and not, say, C#? All of that and more, next.
+
+But first,
+--
+
+== Introduction
+
+video::images/allow-me-to-introduce.mp4[options="loop,nocontrols,autoplay"]
+
+[NOTE.speaker]
+--
+Before we'll jump into the waters of code analysis, allow me to introduce myself:
+
+--
+
+=== !
+
+[NOTE.speaker]
+--
+About five years ago I worked for company that processed huge amounts of data on distributed Python servers. Hoping to
+improve performance, I came along Erlang and Elixir, which introduced me to functional programming. Combined with my
+passion for clean and verifiable code, and the trust I put into formal methods, I quickly found myself sucked to the
+world of functional programming, and especially Haskell and Elm.
+
+
+
+I'm Yoav Luft, born and raised in Israel, currently living with my partner Dafna in Stockholm Sweden. I've have been
+programming professionally for the last ten or so years, working mostly with web applications but also with games,
+embedded systems and other bits'n'pieces.
+
+Other than programming itself, I'm also involved with the programming community as much as I can. In Israel I've founded
+"FLIP", the first functional programming conference in Israel, now preparing for its second round.
+
+I've organized the Elm users group meetups for a while, and I was part of the organizing team of
+"HackExtend", a diversity centered hackathon founded by my partner Dafna and friends.
+
+I currently work for the digital agency "Prototyp", a code lab that build code for costumers that want to break new
+grounds.
+--
+
+[.fragment]
+--
+Yoav Luft
+--
+
+[.fragment]
+--
+Web Dev - Games - Embedded
+--
+
+[.fragment]
+--
+Founded FLIP - Functional Programming conference in Israel
+--
+
+[.fragment]
+--
+Meetups and Hackathons: Elm TLV, HackExtend
+--
+
+[.fragment]
+--
+Prototyp.se
+--
+
+
+== Why should we care about JavaScript?
+
+image::images/JavaScript-logo.png[50%, 50%]
+
+[NOTE.speaker]
+--
+Why should we even care about JavaScript? And especially, why should we talk about it in a functional programming
+conference?
+--
+
+== The Past and Present of Javascript
+
+[NOTE.speaker]
+--
+Let's start with a brief history of JavaScript: Javascript was created at netscape in 1995 after Brenden Eich (AiK), who
+was originally hired to integrate Scheme into the Netscape Navigator, created a prototype in 10 days. It uses a
+curly-braces like syntax because management had decided that they want a Java-like programming language. It's goal was
+to allow running programs in a web-browser, making web pages interactive, and allowing for a ubiquitous platform.
+--
+
+[.step]
+- Created at Netscape 1995 by Brenden Eich
+- Inspired by Scheme and Self
+- Design in just 10 days
+- But management wanted C/Java-like syntax
+
+=== !
+
+[NOTE.speaker]
+--
+Javascript was created with imperative structural syntax similar to C, using control structures such as if-else blocks,
+while and for loops. It has functions as first class citizens and supports closures. It is a universally typed language,
+aka "dynamically" typed, but also supports some version of object oriented structuring with the use of prototypical
+inheritance. 
+--
+
+[.step]
+- Imperative
+- Functions are 1st class citizens
+- Universally typed
+- Prototypical Inheritance
+
+=== !
+
+[source, javascript]
+----
+var object = 
+  { name: "Object1",
+    action: function() { },
+    data: [1, 2, 3]
+  }
+
+console.log(object["name"] === object.name)
+----
+
+[NOTE.speaker]
+--
+It uses the hashmap as its fundamental data-type, which can also be encoded to a data transfer representation, the JSON
+format. It uses late-binding, and allows delegation by the use of the "this" keyword, a feature notoriously confusing
+for programmers who come from other imperative-object-oriented languages such as Java.
+
+Ölbaum[https://twitter.com/oscherler/status/660049264903643136?lang=en]
+--
+
+=== !
+
+.Ölbaum's
+image::images/olabums-tweet-safe.png[]
+
+[NOTE.speaker]
+--
+Being supported on all web browsers, and also being a common backend language through frameworks such as Node.js has
+made Javascript extremely popular.
+--
+
+=== !
+
+[NOTE.speaker]
+--
+In StackOverflow's yearly survey of 2018, Javascript was the most popular programming
+language with 69% of respondents claiming knowledge of the language
+[https://insights.stackoverflow.com/survey/2018/#most-popular-technologies].
+
+It held this position for the last 6 years.
+The top 3 most popular frameworks in that same survey are all Javascript frameworks, with Node.js in the lead, which
+hints to the language's popularity as a backend language.
+--
+
+.Stack Overflow's 2018 Survey
+image::images/stack-overflow-2018-popular.png[]
+
+=== !
+
+[NOTE.speaker]
+--
+According the website SimilarTech, node.js is the third most popular server framework, after PHP, ASP.net. The fourth
+place is occupied by "express", which is a framework built over Node.js.
+[https://www.similartech.com/categories/framework].
+--
+
+.SimilarTech
+image::images/similar-tech.png[]
+
+=== !
+
+[NOTE.speaker]
+--
+On Github, javascript has been the number one programming language for new repositories
+in the last 4 years [https://octoverse.github.com/projects#languages].
+Love it or hate it, being the only programming language supported by all web-browsers means that Javascript's popularity
+is on the rise. 
+--
+
+.Github's Blog Octoverse
+image::images/github-survey.png[]
+
+=== !
+
+video::images/why.mp4[options="loop,nocontrols,autoplay"]
+
+[NOTE.speaker]
+--
+But then again, why should we care, when discussing Javascript in the context of functional programming? 
+--
+
+== JavaScript for Functional Programming
+
+[NOTE.speaker]
+--
+First and foremost, we should note that javascript is a very welcoming language for the flexible functional programmer:
+It supports anonymous functions and closures; It *uses* continuation passing and structured modeling of asynchronous code
+quite often;
+--
+
+Javascript has:
+
+[%step]
+- anonymous functions
+- closures
+- uses continuation passing
+- structured modeling of async (almost monads!)
+
+=== Rapidly Evolving Standard
+
+[NOTE.speaker]
+--
+And it's rapidly evolving standard includes support for things such as shorthand notation for anonymous
+functions (already commonly used), destructuring assignments, constant references, generator functions, and there are
+even pending proposals for tail-call optimization, pipe-operator, partial application syntax and pattern matching.
+--
+
+- [x] anonymous functions shorthand (2015)
+- [x] destructuring assignments (2015)
+- [x] generator functions (2015)
+- [ ] tail-call optimization (pending)
+- [ ] pipe-operator (pending)
+- [ ] partial application syntax (pending)
+- [ ] pattern matching (pending)
+
+=== !
+
+.ECMA Technical Commitee 39
+image::images/TC39.png[50%, 50%]
+
+[NOTE.speaker]
+--
+It appears that many members of the EMCA Technical Commitee 39, the committee in charge of the javascript standard, would
+like to encourage functional programming style in javascript. 
+As people interested in functional programming, I can only awesome that we would all like to use familiar and beloved
+programming style over an imperative, out-styled, and appearently more error prone style. This is especially true if our
+daily work requires writing code that would run on web browsers.
+--
+
+== What does "Adopting functional programming" even mean?
+
+=== !
+
+[NOTE.speaker]
+--
+Just a short google search with the words "Javascript functional programming" will turn out millions of results,
+and many of the top results are blog posts about Javascript, or functional programming in javascript.
+
+But is that a proof that the community as a whole adopts functional programming? Or are these just functional
+programming eccentrics howling at the moon?
+--
+
+image::images/google-js-fp.png[]
+
+=== !
+
+[NOTE.speaker]
+--
+We can break our question to two parts:
+
+Let's start with "adopting"
+--
+
+[.fragment]#Adopting# {nbsp} {nbsp} [.fragment]#functional programming#
+
+== Adopting
+
+[%step]
+. Functional programming was not popular, or formally accepted in Javascript
+. It is now becoming more popular, or being formally accepted
+
+// [quote, Merriam-Webster Dictionary]
+// ____
+// *adopt verb*
+// 
+// \ ə-ˈdäpt  \ adopted; adopting; adopts
+// 
+// Definition of adopt [transitive verb]
+// 
+// . to take by choice into a relationship especially: to take voluntarily (a child of other parents) as one's own child
+// . to take up and practice or use adopted a moderate tone
+// . to accept formally and put into effect adopt a constitutional amendment
+// . to choose (a textbook) for required study in a course
+// . to sponsor the care and maintenance of
+//     adopt a highway
+// ____
+
+[NOTE.speaker]
+--
+Above is the Merriam-Webster definition for adopting.
+
+In adopting some programming style we imply two things:
+
+
+--
+
+=== !
+
+image::images/piece-of-cake.gif[]
+
+== Functional Programming
+
+[NOTE.speaker]
+--
+Now let us look at the second part of my statement: *Functional programming*.
+
+What is, exactly, functional programming? How can we define it, and how can we turn such definition to concrete test
+cases that we can use to determine "how much" Javascript is functional programming?
+
+--
+
+=== How much is JavaScript functional programming
+
+[NOTE.speaker]
+--
+When in doubt regarding definitions, I do what every millennial does: I look it up in wikipedia. The wikipedia
+definition was a bit mouthful, I will not read it out loud, but just notice the underlined bits:
+
+--
+
+[.step]
+. Computation as the evaluation of mathematical functions
+. Avoids changing-state and mutable-data
+. Declarative programming paradigm
+
+// [quote, Wikipedia]
+// ""
+// [...] functional programming is a programming paradigm—a style of building the structure and elements of
+// computer programs—that treats [underline]#computation as the evaluation of mathematical functions# and
+// [underline]#avoids changing-state and mutable data#. It is a [underline]#declarative programming paradigm#, which means
+// programming is done with expressions or declarations[1] instead of statements. In functional code, the output value of a
+// function depends only on the arguments that are passed to the function, so calling a function f twice with the same
+// value for an argument x produces the same result f(x) each time[...]
+// ""
+
+=== Criteria
+
+[NOTE.speaker]
+--
+Let's see if we can turn them into criteria for estimating how "functional" is a language or a piece of code.
+--
+
+video::images/chosen.mp4[options="loop,nocontrols,autoplay"]
+
+// [quote, Math Insight, https://mathinsight.org/definition/function]
+// ____
+// A technical definition of a function is: a relation from a set of inputs to a set of possible outputs where each input
+// is related to exactly one output.
+// ____
+
+=== Computation of Mathematical Functions
+
+[NOTE.speaker]
+--
+Let's start with "Computation as the evaluation of mathematical functions". What are "mathematical functions" in this
+context? Again, from definitions, a mathematical functions is a relation from a set of input to a
+set of possible outputs where each input is related to exactly one output.
+
+OK! That's tangible! Let's try and formalize this to a criterion:
+
+A piece of code is more "functional programming" if it uses more mathematical functions.
+
+A mathematical function is such function that its output depends entirely on its arguments.
+
+While simple, alas, determining such thing for arbitrary Javascript code was a bit out of scope for my research.
+--
+
+Mathematical 
+
+[source, javascript]
+----
+function append(array, x) {
+  return array.concat(x)
+}
+var a1 = [1, 2]
+var a2 = append(a1, 3)
+// a1 == [1, 2]; a2 == [1, 2, 3]
+----
+
+Non-mathematical
+
+[source, javascript]
+----
+var array = [1, 2]
+function append(x) {
+  array.push(x)
+}
+append(3) // undefined -> no return
+          // array == [1, 2, 3]
+----
+
+
+=== Avoid changing state and mutable-data
+
+image:images/smoke.jpg[cover]
+
+[NOTE.speaker]
+--
+I think this one is both simple and complex at the same time. It is simple because mutability and changing state are
+strongly related, and very intuitive to grasp. This is complex because [a] all useful programs perform state changes; [b]
+it is difficult to tell apart, when doing static analysis of code, whether a data mutation is done in-order to achieve a
+desired side-effect or whether it is due to the implementation of an algorithm.
+
+Luckily for us, we've got some help: Many javascript projects use 3rd party packages to provide immutable data structures.
+Javascript also added the "const" keyword for immutable reference, and the `Object.freeze()` method for making
+objects immutable at runtime. All three can be good and easy to gather indicators for how immutability is common in
+javascript.
+--
+
+== Declarative Programming Paradigm
+
+[NOTE.speaker]
+--
+And last but not least, we can look at whether projects adopt a declarative style of programming. Again, a definition is
+in order:
+
+While this might sound as vague as the previous definitions, I find that the last bit in there is key:
+--
+
+[quote, Wikipedia]
+____
+a style of building the structure and elements of computer programs—that expresses the logic of a computation without
+describing its control flow.
+____
+
+=== !
+
+[quote]
+____
+[...] without describing its control flow.
+____
+
+[NOTE.speaker]
+--
+Javascript, being a language that uses C style imperative structures, comes with a nice set of control flow structures:
+--
+
+=== While loops 
+
+.While Loops
+[source, javascript]
+----
+while (condition) {
+  doAction()
+}
+
+do {
+  action()
+} while (condition)
+----
+
+=== For loops
+
+[NOTE.speaker]
+--
+Not one, not two, but three different kinds of for loops:
+
+Do not worry yourselves about the differences between the two last examples, it is not that important.
+--
+
+.For Loops
+[source, javascript]
+----
+for (var i = 0; i < size; i++) {
+  use(i)
+}
+for (var property in object) {
+  use(property)
+}
+for (var index of array) {
+  use(index)
+}
+----
+
+=== Branching
+
+[NOTE.speaker]
+--
+In addition, javascript supports if-else statements, switch statements and labels, which are just a different name to
+C's good old GOTO statements.
+
+Now, how would a declarative piece of javascript code would look like? It would avoid control flow structures, but which?
+
+If statements can only be replaces with the trianary operator, which is terse and difficult to read, so if-else are
+likely to stay.
+
+Switch statements are often used where pattern matching would have been used, and given there is no standarized
+replacement for them, it would be difficult to compare them to something else.
+
+Labels are rarely seen, so we are left with looping constructs.
+--
+
+.If-else
+[source, javascript]
+----
+if (condition) {
+  doSomething()
+} else {
+  doSomethingElse()
+}
+var a = condition ? val1 : val2
+----
+
+// [.float-right]
+// NOTE: `undefined` is javascript's special way to spice up the old billion dollar mistake. Why use just "null" for
+//       no-value when you can also use "undefined"?
+
+.Switch statement
+[source, javascript]
+----
+switch (response) {
+  case "yes":
+    return true
+  case "no":
+    return false
+  default:
+    return undefined
+}
+----
+
+=== Iteration functions
+
+[NOTE.speaker]
+--
+Luckily for us, looping constructs do have good alternatives: The javascript Array object offers 4 familiar and useful
+functions: `map`, `filter`, `forEach` and `reduce`. Here's a small examples of some of them:
+--
+
+`map`, `filter`, `forEach` and `reduce`
+
+|===================
+| Imperative  | Declarative
+
+a|
+[source, javascript]
+----
+var result
+for (var i of array) {
+  result[i] = f(array[i])
+}
+----
+
+a|
+[source, javascript]
+----
+var result = array.map(f)
+----
+
+a|
+[source, javascript]
+----
+var acc
+for (var i of arr) {
+  acc = f(acc, arr[i])
+}
+----
+
+a|
+[source, javascript]
+----
+var accumulated =
+  arr.reduce(f)
+----
+
+|===================
+
+=== Helper Libraries for Functional Programming
+
+image::images/underscore.png[role="no-border"]
+
+[.half]
+image::images/lodash.png[role="float-left half no-border"]
+
+[.half]
+image::images/ramda.png[role="float-right half no-border"]
+
+[NOTE.speaker]
+--
+These functions are built in as part of the Array API, and they have common alternative versions in utility libraries
+such as `underscore`, `lodash` and `Ramda`. Combined with some built functions from the `Object` class, such as
+`Object.keys` which returns an array of all keys, they are complete enough to represent most, if not all, iteration
+constructs required by javascript developers.
+
+Because of these properties I've decided that looping constructs are the best candidates for measuring how much does
+Javascript adopts declarative programming.
+--
+
+== Where is the Evidence?
+
+video::images/southpark-proof.mp4[options="loop,nocontrols,autoplay"]
+
+[NOTE.speaker]
+--
+I hope I did not bored you with this prolonged introduction. Armed with the understanding that while the question of
+whether Javascript goes functional or not is complicated, the question of whether it becomes more declarative is easier
+to answer. Now comes the search for data.
+--
+
+== Methods
+
+[NOTE.speaker]
+--
+After consulting with Prof. Feitelson, I've decided to focus on projects which are:
+
+By looking at how these projects evolve, we can gain insights into general trends in Javascript.
+I've decided to use Github's one hundred most popular javascript projects, such as:
+--
+
+Projects which are:
+
+. Open source
+. Have a lot of contributors
+. Have been around for a while
+
+
+[%notitle]
+=== Project examples
+
+// icons
+image:images/angular.svg[angular.js, 150,150,role="no-border"]
+image:images/threejs.png[three.js, 300, 150,role="no-border"]
+image:images/vue.png[vue, 150, 150,role="no-border"]
+image:images/d3.png[d3, 150, 150,role="no-border"]
+
+- Atom code editor
+- etc.
+
+[NOTE.speaker]
+--
+Next, I've gathered metadata on each project, such as it's number of stargazers and it's number of forks,
+dependencies used and so on.
+
+Finally, I've looked at the actual code. By selecting the last commit in each of the years 2009, 2012, 2015, and 2018, I
+would see into some of the trends in the overall Javascript programming style.
+--
+
+=== Data Collection Process
+
+////
+[graphviz]
+....
+digraph g{
+  rankdir=LR; ranksep=0.2; size="8,6";
+  repo_list[label="Repository\nList"];
+  repo_list -> Metadata [label="fetch"];
+  Metadata -> Out [label="save"];
+  Metadata -> Commits;
+  Commits -> Snapshots;
+  Snapshots -> AST;
+  AST -> Count;
+  Count[label="Count\nPatterns"];
+  Count -> Out;
+  Out[shape=circle];
+}
+....
+////
+
+image::images/method-graph.png[data collection process, 70%]
+
+[NOTE.speaker]
+--
+Once the commits where selected, I've downloaded a snapshot of each repository at each of the target commits, and sent
+the content of the snapshot to a processing pipeline. The processing pipeline uses the Esprima parser to generate an
+Abstract Syntax Tree for each file, which was then searched for specific patterns.
+--
+
+=== Terminology
+
+Project = A repository on Github
+
+Sample = Data on patterns from a project's snapshot
+
+Sample Year = A sample from the specified year
+
+=== Patterns: Imperative
+
+[NOTE.speaker]
+--
+For each files of valid Javascript, I've looked for the following patterns:
+--
+
+- for loop, for..in loops, for..of loops
+
+[source, javascript]
+----
+for (var i = 0; i < size; i++) {...}
+for (var i in object) {...}
+for (var i of array) {...}
+----
+
+- while and do-while loops
+
+[source, javascript]
+----
+while (cond) {...}
+----
+
+=== Patterns: Declarative
+
+- forEach calls:
+
+[source, javascript]
+----
+arr.forEach(f); _.forEach(arr, f); _.each(arr, f)
+----
+
+- map calls and aliases such as
+
+  `map`, `pluck`, `flatMap`, `collect`
+
+- filter calls and aliases:
+
+  `filter`, `select`, `reject`, `where`
+
+- reduce calls and aliases:
+
+  `reduce`, `reduceRight`, `foldl`, `foldr`
+
+
+[NOTE.speaker]
+--
+After filtering some problematic repositories, I moved into analyzing the results.
+--
+
+== Results
+
+[NOTE.speaker]
+--
+Let's start with a short survey of the projects:
+--
+
+image::images/results-bg.jpg[.stretch]
+
+=== Projects
+
+// .Projects in Each Sample year
+image::images/num_projects_sample_year.png[]
+
+[NOTE.speaker]
+--
+This graph shows how many samples we've managed to gather in each year, out of our initial one hundred repositories.
+We had only 3 samples from 2009, so this year will be discarded in future graphs, and we had 79 samples in 2018.
+--
+
+// NOTE: Sample - a snapshot of a projects code at a specific time. Not all projects had samples at all times.
+
+=== Projects by Age
+
+// .Repositories by Age
+image::images/created_year_cdf.png[]
+
+[NOTE.speaker]
+--
+This brings the question of the age of the projects on Github. We can see that over half of them were created on Github
+at before 2014. This means they have at least 5 years of development in the public domain, which is desired.
+
+It is important to note that not all projects had samples in every year.
+--
+
+=== Size of Projects
+
+// .Lines of code Per Sample Year
+image::images/loc_files_per_sample_year.png[]
+
+[NOTE.speaker]
+--
+How large were the projects?
+
+These two graphs show the total number of parsed Javascript files in each sample year, and the sum of lines of code for
+each sample. We can see that we're dealing with magnitude of 3 million lines of code. We can also witness the rapid
+growth of Javascript from 2012 to 2015, almost tripling the number of lines of code, while doubling the number of files.
+
+We can see that from 2015 to 2018 the number of lines of code grows more slowly, but the number of files keeps on
+growing steadily. This is an indication that code is broken into smaller files, maybe due to refactoring of the
+projects?
+--
+
+=== Constructs in Samples
+
+// .Number of Iteration Constructs in Each Year Sample
+image::images/num_constructs_year.png[]
+
+[NOTE.speaker]
+--
+Next, we'll look at the how common are different code constructs in different samples:
+
+In this graph we see the count of each iteration construct across the three sample years. The top for are our impreative
+constructs, `while`, `for..of`, `for..in` and C-style ``for``-loops. Beneath them are our declarative constructs:
+`forEach`, `reduce`, `map` and `filter`. The green line is the sum of all declarative constructs.
+
+We can notice that from 2015 to 2018 the total number of iteration constructs had stayed roughly the same, but we
+already know that the amount of code had increased. We can also see that the declarative part is slightly raising, and
+also that C-style `for` loops are the most popular interation construct.
+--
+
+=== Constructs per LoC
+
+// .Number of Iteration Construct per Lines of Code
+image::images/percent_constructs_year.png[]
+
+[NOTE.speaker]
+--
+Let's look at the same data normalized by the number of lines of code in each sample:
+
+In this graph it becomes obvious that as time advances, there are less iteration per line of code. Is that because
+projects use APIs which are even more high-level than the ones I'm sampling, or is because there are less iterations
+over data in general?
+
+We can see that while the total number of iteration constructs shrink, the part of the declarative constructs
+shrinks more slowly. Let's have a look at the relative amount of each construct compared to the others:
+--
+
+=== Constructs in Percentage
+
+// .Percentage of Iteration Constructs over Years
+image::images/dist_constructs_year.png[]
+
+[NOTE.speaker]
+--
+Now, here we can see an obvious trend: declarative iteration constructs are on the rise compared to their imperative
+counterparts. Still, they are only slightly more that 40% of total constructs use, with C-style `for` loops still in the
+lead with 34% of all constructs found. `while` loops are slowly disappearing, dropping from 13% to just 9.6% over the
+last 6 years, while the use of `map` is slowly on the rise. Surprisngly enough, the use of `reduce`, while rare, is
+quite constants, being around 1% of all samples.
+
+It seems like this supports the idea that javascript is moving to more declarative iteration constructs, but it seems
+like this process is not as fast as I originally had guessed. Let's try and look what kind of projects change the
+most.
+--
+
+=== Individual Projects
+
+image::images/decl_ratio_per_project_sample.png[]
+
+== Individual Projects
+
+// .Ratio of Declarative Iterations per Project over Samples
+image::images/decl_ratio_per_project_over_time.png[]
+
+//Declarative Index: latexmath:[$\frac{Declarative}{Declarative + Imperative}$]
+
+[NOTE.speaker]
+--
+Sixty six of the projects appeared in more than one sample, meaning that we can track their individual development over
+time. To do that, I started by defining the projects "Declarative Index", which is the ratio of declarative iteration
+constructs out of the total number of constructs. A declarative index of "one" means that projects uses only declarative
+iteration constructs, while a "zero" means that only imperative constructs are used.
+
+I've proceeded with plotting the declarative index for each project over our sampled years. We can see that while most
+projects create an upwards slope, meaning they go from imperative to declarative, this is not universally true.
+
+I've plotted the mean declarative index as the magenta line, and we can see that over the last 6 years there's an
+obvious trend where projects move to a higher declarative index, from approximately 0.4 in 2012 to almost 0.6 in 2018.
+
+Is there anything that can predict whether a project will choose or turn to a more declarative style?
+--
+
+=== Age as Estimator
+
+// .Declarative Ratio by Project Age in Years
+image::images/declarative_by_age.png[]
+
+[NOTE.speaker]
+--
+By plotting the declarative index of a project in the last sample in which it appears against different properties of
+the project, we can hope to achieve some insight into which projects are more declarative.
+
+In this graph we see the scatter of the projects index versus age and the regression line.
+
+It seems like that the younger the project is, the more likely it is to have an higher declarative index! In other
+words, newer projects tend to prefer a more declarative programming style.
+--
+
+=== Number of Forks
+
+// .Declarative Ratio by Number of Project Forks
+image::images/declarative_by_forks.png[]
+
+[NOTE.speaker]
+--
+Let's consider the number of forks a project has and it's index.
+
+If you are not familiar with github, a fork is a copy of the project with independent changes that might be merged back
+into the project. In most projects, the only why for a contributor to contribute code is to first fork the project.
+
+Again, we're look at the scatter-plot with regression. We can see that in this case the declarative index is slightly
+inversely correlated with the number of forks.
+--
+
+// === Project Stargazers
+// 
+// // .Forks vs Stargazers
+// image::images/forks_vs_stars.png[]
+// 
+// [NOTE.speaker]
+// --
+// What about the popularity of the project, represented by the number of "stargazers"? First, it is strongly correlated
+// with number of forks, as evident from this graph, showing the scatter of forks versus stargazers.
+// 
+// So intuitively, I would expect it to be similar to the relation between the declarative index and the number of forks.
+// Let's see:
+// --
+
+=== Stargazers vs. Index
+
+// .Declarative Ratio by Stars
+image::images/declarative_by_stars.png[]
+
+[NOTE.speaker]
+--
+Interestingly enough, there is no correlation! But I wouldn't put to much meaning into this graph, because being a
+stargazer of a project doesn't have some inherent well understood meaning, similar to a "like" on twitter or Facebook.
+
+Finally, let's see how the number of contributors correlates with the projects "declarative index":
+--
+
+=== Project Contributors
+
+// .Declarative Ratio by Number of Contributors
+image::images/declarative_by_contributors.png[]
+
+[NOTE.speaker]
+--
+Last property of project we'll see today is the number of contributors, as reported by the projects main Github page.
+
+From the number of contributors we can see that there is some correlation between more contributors and more declarative
+style of code. This might imply that the majority of JavaScript programmers prefer a declarative style of coding.
+--
+
+== Supporting Libraries
+
+[NOTE.speaker]
+--
+As we discussed earlier, the question of measuring "functional programming" of a project is more complicated. A possible
+indication can be the use of libraries that make a functional programming style more accessible in JavaScript, such as
+"underscore", "lodash" and "Ramda".
+
+By looking at the dependencies of different projects, we can see whether they use one of these libraries or not. This
+graph shows the number of projects in each sample that had such a library as a dependency. We can see that while these
+libraries are on the rise, they are still being used in less than a quarter of the projects.
+--
+
+.Helper Libraries Use
+image::images/helpers_libs.png[]
+
+////
+NOTE: Helper libraries provide high level API over data structures, for example a "groupby" function over fields, or
+"mapValues" that can be used to map object values. Some of them, like Ramda, use conventions popular in languages such
+Haskell and Elm
+////
+
+=== Immutability
+
+image::images/fantasy-land.png[role="half float-left no-border"]
+image::images/static-land.png[role="half float-right no-border"]
+image::images/immutablejs.png[role="no-border"]
+
+[NOTE.speaker]
+--
+There are some libraries which provide facilities for immutable data structures in JavaScript, and some libraries for
+advance data structures, such as Algebraic Data Types. Unfortunately, I couldn't find any project in any sample who used
+such a library. 
+--
+
+== What's Next
+
+[NOTE.speaker]
+--
+As for my research, there are some obvious steps forward:
+
+- The most obvious is to look at a larger sample.
+- I can also look at other structures, such as assignments and branching.
+- It might be possible to identify the uses of higher-order functions.
+- Or just examine specific examples in more detail, for example, determining how easy it is to refactor code from
+  imperative to declarative style.
+- We can look at changes over time at the commit level: is code being refactored?
+- And finally, we can see whether projects migrate to functional languages.
+
+And of course, there are so many small improvements to make, such as supporting more flavors of JavaScript, and even
+looking at JavaScript's typed superset, TypeScript.
+--
+
+[.step]
+- Look at a larger sample
+- Examine more structures, e.g. assignments
+- Look at the use of higher-order functions
+- Examine results into more detail.
+- Examine changes of code over time
+- Look for projects migrating from Javascript to functional languages
+
+== I need to run code on the browser, what are my options?
+
+[NOTE.speaker]
+--
+Oh! Well, if you don't like Javascript but need to write code that runs in a web browser there are several nice
+alterantives:
+
+Elm: a small delightful language that IMHO solves many of the problems in web programming
+
+ClojureScrip:  if you just can live another project without LISP
+
+PureScript: a Haskell-like language that compiles to Javascript and has some tweeks for nicer interpolation with
+Javascript.
+
+Reason: an OCaml inspired language that started trending lately, mostly due to it's easy interop with Javascript.
+
+Wait for the Web assembly standard to mature and then just write code in whatever languae you want.
+
+100s of Language X to Javascripts: Hundreds of other programming languages that can compile themselves to Javascript,
+such as Haskell, Kotlin, Scala, Ruby, Python. 
+
+Google any word with "Script" as suffix or that is a pun on coffee and there's probably a Javascript dialect or a
+language that transpiles to Javascript by that name.
+--
+
+// [.step]
+// - Elm 
+// - ClojureScript
+// - PureScript
+// - ReasonML
+// - WebAssembly
+// - 100s of Language X to Javascripts
+
+[.fragment.third.float-left]
+--
+image::images/Elm_logo.svg.png[Elm, 100, 100, role="no-border"]
+Elm
+--
+
+[.fragment.third.float-left]
+--
+image::images/cljs.png[ClojureScript, 100, 100, role="no-border"]
+ClojureScript
+--
+
+[.fragment.third.float-right]
+--
+image::images/PureScript_Logo.png[PureScript, 100, 100, role="no-border"]
+PureScript
+--
+
+[.fragment.half.float-left]
+--
+image::images/reason.svg[Reason, 100, 100, role="no-border"]
+Reason
+--
+
+[.fragment.half.float-right]
+--
+image::images/Web_Assembly_Logo.svg.png[WebAssembly, 100, 100, role="no-border"]
+WebAssembly
+--
+
+=== List of X to Javascript
+
+image::images/list-of-langs-qr.png[35%, 35%]
+
+https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js
+
+== Shameless Plug
+
+[NOTE.speaker]
+--
+If you find this project interesting, you can contribute to the code through it's repo on github, or by encouraging me
+to keep researching programming languages.
+
+I work for Prototyp, where we <put slogan here>. We're located in Stockholm and Barcelona and would be happy to help you
+with your projects.
+--
+
+icon:twitter[] @luftyoav
+
+icon:envelope[] yoav.luft@gmail.com
+
+image:images/prototyp.svg[]
+
+
+== Thank you!
+
+== Questions?
+

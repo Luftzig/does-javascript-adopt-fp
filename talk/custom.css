@@ -1,0 +1,42 @@
+.reveal .line-through {
+  text-decoration: line-through;
+}
+
+.reveal .admonitionblock.float-right {
+  float: right;
+  font-size: 60%;
+  width: 33%;
+  background-color: darkslategray;
+  margin-top: 40px;
+  margin: 25px;                      }
+
+.reveal blockquote {
+  width: 90%;       }
+
+.reveal blockquote p {
+  font-size: 0.6em;
+  line-height: 1.2em; }
+
+.reveal .underline {
+  text-decoration: underline; 
+                   }
+
+.reveal .imageblock.half {
+  width: 50%;            }
+
+.reveal div.half {
+  width: 50%;    }
+
+.reveal div.third {
+  width: 33.3%;   }
+
+.reveal .float-left {
+  float: left;    }
+
+.reveal .float-right {
+  float: right;    }
+
+.reveal section .no-border img {
+  background-color: lightgrey;
+  padding: 4px;
+  border: 0;                   }
