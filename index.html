@@ -1,28 +1,35 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="Yoav Luft"><title>Does JavaScript Adopt Functional Programming?</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>var link = document.createElement( 'link' );
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="Yoav Luft"><title>Does JavaScript Adopt Functional Programming?</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/black.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/css/zenburn.css" rel="stylesheet"><script>var link = document.createElement( 'link' );
 link.rel = 'stylesheet';
 link.type = 'text/css';
-link.href = window.location.search.match( /print-pdf/gi ) ? "reveal.js/css/print/pdf.css" : "reveal.js/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="custom.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Does JavaScript Adopt Functional Programming?</h1><div class="preamble"><div class="paragraph"><p><span class="icon"><i class="fa fa-twitter"></i></span> @luftyoav</p></div>
+link.href = window.location.search.match( /print-pdf/gi ) ? "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/pdf.css" : "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/paper.css";
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="custom.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Does JavaScript Adopt Functional Programming?</h1><div class="preamble"><div class="paragraph"><p><span class="icon"><i class="fa fa-twitter"></i></span> @luftyoav</p></div>
 <div class="paragraph"><p><span class="icon"><i class="fa fa-envelope"></i></span> <a href="mailto:yoav.luft@gmail.com">yoav.luft@gmail.com</a></p></div>
 <aside class="notes"><div class="paragraph"><p>Hello! My name is Yoav Luft and today I&#8217;m going to talk about whether the JavaScript community adopts functional
-programming or not. In this talk I&#8217;ll present preliminary results from an on-going research I&#8217;m conducting under the
-supervision of Prof. Feitelson from the Hebrew University of Jerusalem. In this talk I&#8217;ll include other material not
-from the research, and any mistakes or misinterpretations are my own only.</p></div>
+programming or not.</p></div>
 <div class="paragraph"><p>The talk will be divided into 4 parts:</p></div></aside></div><p class="author"><small>Yoav Luft</small></p></section>
-<section id="table_of_contents"><h2>Table of Contents</h2><div class="ulist"><ul><li><p>Why should we care about JavaScript?</p></li><li><p>What "adopting functional programming" even mean?</p></li><li><p>Where is the evidence?</p></li><li><p>What&#8217;s next?</p></li></ul></div>
+<section id="table_of_contents"><h2>Table of Contents</h2><div class="ulist"><ul><li><p>Why should we care about JavaScript?</p></li><li><p>What "adopting functional programming" even means?</p></li><li><p>Where is the evidence?</p></li><li><p>What&#8217;s next?</p></li></ul></div>
 <aside class="notes"><div class="ulist"><ul><li><p>Why should we care about JavaScript?</p></li><li><p>What "adopting functional programming" even mean?</p></li><li><p>Where is the evidence?</p></li><li><p>What&#8217;s next?</p></li></ul></div>
 <div class="paragraph"><p>and finally,</p></div></aside></section>
-<section><section id="spoiler_alert"><h2>Spoiler Alert</h2><div class="videoblock stretch"><video src="images/spoilers.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div><aside class="notes"><div class="paragraph"><p>In case you just can&#8217;t contain your curiousity, here&#8217;s the short version:</p></div></aside></section><section id="javascript_becomes_more_declarative"><h2>JavaScript becomes more declarative</h2><div class="openblock fragment"><div class="content"><div class="paragraph"><p>100 top projects</p></div></div></div>
+<section><section id="spoiler_alert"><h2>Spoiler Alert</h2><div class="videoblock stretch"><video src="images/spoilers.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div><aside class="notes"><div class="paragraph"><p>In case you just can&#8217;t contain your curiosity, here&#8217;s the short version:</p></div></aside></section><section id="javascript_becomes_more_declarative"><h2>JavaScript becomes more declarative</h2><div class="openblock fragment"><div class="content"><div class="paragraph"><p>100 top projects</p></div></div></div>
 <div class="openblock fragment"><div class="content"><div class="paragraph"><p><span class="icon"><i class="fa fa-plus"></i></span></p></div>
 <div class="paragraph"><p>Analyzing the Code</p></div></div></div>
 <div class="openblock fragment"><div class="content"><div class="paragraph"><p><strong>=</strong></p></div>
 <div class="paragraph"><p>JavaScript Becomes <span class="line-through">Functional</span> Declarative</p></div></div></div>
-<aside class="notes"><div class="paragraph"><p>By looking at Github&#8217;s one hundred most popular javascript projects, analyzing their code and dependencies, we can be
-certain that as the years go on, the Javascript community is adopting a more declarative programming style.</p></div>
-<div class="paragraph"><p>How did we manage to get to this conclusion? What it has to do with functional programming, and why even look at
+<aside class="notes"><div class="paragraph"><p>This talk is based on a research I&#8217;m conducting on coding style in Javascript. I conduct the
+research independently but under the supervision of Prof. Feitelson from the Hebrew University of
+Jerusalem. The results that I&#8217;ll show today are preliminary, and we&#8217;ll be subject to more thorough
+investigation.</p></div>
+<div class="paragraph"><p>By looking at Github&#8217;s one hundred most popular javascript projects, analyzing their code and
+dependencies, I feel quite convinced that as the years go on, the Javascript community is adopting a
+more declarative programming style.</p></div>
+<div class="paragraph"><p>How did I manage to get to this conclusion? What it has to do with functional programming, and why even look at
 javascript and not, say, C#? All of that and more, next.</p></div>
 <div class="paragraph"><p>But first,</p></div></aside></section></section>
-<section><section id="introduction"><h2>Introduction</h2><div class="videoblock stretch"><video src="images/allow-me-to-introduce.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div><aside class="notes"><div class="paragraph"><p>Before we&#8217;ll jump into the waters of code analysis, allow me to introduce myself:</p></div></aside></section><section><aside class="notes"><div class="paragraph"><p>I&#8217;m Yoav Luft, born and raised in Israel, currently living with my partner Dafna in Stockholm Sweden. I&#8217;ve have been
+<section><section id="introduction"><h2>Introduction</h2><div class="videoblock stretch"><video src="images/allow-me-to-introduce.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div><aside class="notes"><div class="paragraph"><p>Before we&#8217;ll jump into the waters of code analysis, allow me to introduce myself:</p></div></aside></section><section><aside class="notes"><div class="paragraph"><p>About five years ago I worked for company that processed huge amounts of data on distributed Python servers. Hoping to
+improve performance, I came along Erlang and Elixir, which introduced me to functional programming. Combined with my
+passion for clean and verifiable code, and the trust I put into formal methods, I quickly found myself sucked to the
+world of functional programming, and especially Haskell and Elm.</p></div>
+<div class="paragraph"><p>I&#8217;m Yoav Luft, born and raised in Israel, currently living with my partner Dafna in Stockholm Sweden. I&#8217;ve have been
 programming professionally for the last ten or so years, working mostly with web applications but also with games,
 embedded systems and other bits&#8217;n&#8217;pieces.</p></div>
 <div class="paragraph"><p>Other than programming itself, I&#8217;m also involved with the programming community as much as I can. In Israel I&#8217;ve founded
@@ -178,7 +185,7 @@ for (var i of array) {
 for (var i of arr) {
   acc = f(acc, arr[i])
 }</code></pre></div></div></div></td><td class="tableblock halign-left valign-top"><div><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var accumulated =
-  arr.reduce(f)</code></pre></div></div></div></td></tr></table></section><section id="helper_libraries_for_functional_programming_in_javascript"><h2>Helper Libraries for Functional Programming in JavaScript</h2><div class="imageblock no-border" style=""><img src="images/underscore.png" alt="underscore"></div>
+  arr.reduce(f)</code></pre></div></div></div></td></tr></table></section><section id="helper_libraries_for_functional_programming"><h2>Helper Libraries for Functional Programming</h2><div class="imageblock no-border" style=""><img src="images/underscore.png" alt="underscore"></div>
 <div class="imageblock float-left half no-border" style=""><img src="images/lodash.png" alt="lodash"></div>
 <div class="imageblock float-right half no-border" style=""><img src="images/ramda.png" alt="ramda"></div>
 <aside class="notes"><div class="paragraph"><p>These functions are built in as part of the Array API, and they have common alternative versions in utility libraries
@@ -249,8 +256,8 @@ last 6 years, while the use of <code>map</code> is slowly on the rise. Surprisng
 quite constants, being around 1% of all samples.</p></div>
 <div class="paragraph"><p>It seems like this supports the idea that javascript is moving to more declarative iteration constructs, but it seems
 like this process is not as fast as I originally had guessed. Let&#8217;s try and look what kind of projects change the
-most.</p></div></aside></section></section>
-<section><section id="individual_projects"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_over_time.png" alt="decl ratio per project over time"></div><aside class="notes"><div class="paragraph"><p>Sixty six of the projects appeared in more than one sample, meaning that we can track their individual development over
+most.</p></div></aside></section><section id="individual_projects"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_sample.png" alt="decl ratio per project sample"></div></section></section>
+<section><section id="individual_projects_2"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_over_time.png" alt="decl ratio per project over time"></div><aside class="notes"><div class="paragraph"><p>Sixty six of the projects appeared in more than one sample, meaning that we can track their individual development over
 time. To do that, I started by defining the projects "Declarative Index", which is the ratio of declarative iteration
 constructs out of the total number of constructs. A declarative index of "one" means that projects uses only declarative
 iteration constructs, while a "zero" means that only imperative constructs are used.</p></div>
@@ -258,7 +265,7 @@ iteration constructs, while a "zero" means that only imperative constructs are u
 projects create an upwards slope, meaning they go from imperative to declarative, this is not universally true.</p></div>
 <div class="paragraph"><p>I&#8217;ve plotted the mean declarative index as the magenta line, and we can see that over the last 6 years there&#8217;s an
 obvious trend where projects move to a higher declarative index, from approximately 0.4 in 2012 to almost 0.6 in 2018.</p></div>
-<div class="paragraph"><p>Is there anything that can predict whether a project will choose or turn to a more declarative style?</p></div></aside></section><section id="individual_projects_2"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_sample.png" alt="decl ratio per project sample"></div></section><section id="age_as_estimator"><h2>Age as Estimator</h2><div class="imageblock" style=""><img src="images/declarative_by_age.png" alt="declarative by age"></div>
+<div class="paragraph"><p>Is there anything that can predict whether a project will choose or turn to a more declarative style?</p></div></aside></section><section id="age_as_estimator"><h2>Age as Estimator</h2><div class="imageblock" style=""><img src="images/declarative_by_age.png" alt="declarative by age"></div>
 <aside class="notes"><div class="paragraph"><p>By plotting the declarative index of a project in the last sample in which it appears against different properties of
 the project, we can hope to achieve some insight into which projects are more declarative.</p></div>
 <div class="paragraph"><p>In this graph we see the scatter of the projects index versus age and the regression line.</p></div>
@@ -268,11 +275,7 @@ words, newer projects tend to prefer a more declarative programming style.</p></
 <div class="paragraph"><p>If you are not familiar with github, a fork is a copy of the project with independent changes that might be merged back
 into the project. In most projects, the only why for a contributor to contribute code is to first fork the project.</p></div>
 <div class="paragraph"><p>Again, we&#8217;re look at the scatter-plot with regression. We can see that in this case the declarative index is slightly
-inversely correlated with the number of forks.</p></div></aside></section><section id="project_stargazers"><h2>Project Stargazers</h2><div class="imageblock" style=""><img src="images/forks_vs_stars.png" alt="forks vs stars"></div>
-<aside class="notes"><div class="paragraph"><p>What about the popularity of the project, represented by the number of "stargazers"? First, it is strongly correlated
-with number of forks, as evident from this graph, showing the scatter of forks versus stargazers.</p></div>
-<div class="paragraph"><p>So intuitively, I would expect it to be similar to the relation between the declarative index and the number of forks.
-Let&#8217;s see:</p></div></aside></section><section id="stargazers_vs_index"><h2>Stargazers vs. Index</h2><div class="imageblock" style=""><img src="images/declarative_by_stars.png" alt="declarative by stars"></div>
+inversely correlated with the number of forks.</p></div></aside></section><section id="stargazers_vs_index"><h2>Stargazers vs. Index</h2><div class="imageblock" style=""><img src="images/declarative_by_stars.png" alt="declarative by stars"></div>
 <aside class="notes"><div class="paragraph"><p>Interestingly enough, there is no correlation! But I wouldn&#8217;t put to much meaning into this graph, because being a
 stargazer of a project doesn&#8217;t have some inherent well understood meaning, similar to a "like" on twitter or Facebook.</p></div>
 <div class="paragraph"><p>Finally, let&#8217;s see how the number of contributors correlates with the projects "declarative index":</p></div></aside></section><section id="project_contributors"><h2>Project Contributors</h2><div class="imageblock" style=""><img src="images/declarative_by_contributors.png" alt="declarative by contributors"></div>
@@ -296,7 +299,7 @@ imperative to declarative style.</p></li><li><p>We can look at changes over time
 <div class="paragraph"><p>And of course, there are so many small improvements to make, such as supporting more flavors of JavaScript, and even
 looking at JavaScript&#8217;s typed superset, TypeScript.</p></div></aside>
 <div class="ulist step"><ul><li class="fragment"><p>Look at a larger sample</p></li><li class="fragment"><p>Examine more structures, e.g. assignments</p></li><li class="fragment"><p>Look at the use of higher-order functions</p></li><li class="fragment"><p>Examine results into more detail.</p></li><li class="fragment"><p>Examine changes of code over time</p></li><li class="fragment"><p>Look for projects migrating from Javascript to functional languages</p></li></ul></div></section>
-<section><section id="no_no_no_i_meant_whats_next_for_me"><h2>No, no, no, I meant what&#8217;s next for me&#8230;&#8203;</h2><aside class="notes"><div class="paragraph"><p>Oh! Well, if you don&#8217;t like Javascript but need to write code that runs in a web browser there are several nice
+<section><section id="i_need_to_run_code_on_the_browser_what_are_my_options"><h2>I need to run code on the browser, what are my options?</h2><aside class="notes"><div class="paragraph"><p>Oh! Well, if you don&#8217;t like Javascript but need to write code that runs in a web browser there are several nice
 alterantives:</p></div>
 <div class="paragraph"><p>Elm: a small delightful language that IMHO solves many of the problems in web programming</p></div>
 <div class="paragraph"><p>ClojureScrip:  if you just can live another project without LISP</p></div>
@@ -310,8 +313,8 @@ such as Haskell, Kotlin, Scala, Ruby, Python.</p></div>
 language that transpiles to Javascript by that name.</p></div></aside><div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/Elm_logo.svg.png" alt="Elm" width="100" height="100"></div>
 <div class="paragraph"><p>Elm</p></div></div></div><div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/cljs.png" alt="ClojureScript" width="100" height="100"></div>
 <div class="paragraph"><p>ClojureScript</p></div></div></div><div class="openblock fragment third float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/PureScript_Logo.png" alt="PureScript" width="100" height="100"></div>
-<div class="paragraph"><p>PureScript</p></div></div></div><div class="openblock fragment half float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/reason.svg" alt="Reason" width="100" height="100"></div>
-<div class="paragraph"><p>Reason</p></div></div></div><div class="openblock fragment"><div class="content"><div class="imageblock no-border" style=""><img src="images/Web_Assembly_Logo.svg.png" alt="WebAssembly" width="100" height="100"></div>
+<div class="paragraph"><p>PureScript</p></div></div></div><div class="openblock fragment half float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/reason.svg" alt="Reason" width="100" height="100"></div>
+<div class="paragraph"><p>Reason</p></div></div></div><div class="openblock fragment half float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/Web_Assembly_Logo.svg.png" alt="WebAssembly" width="100" height="100"></div>
 <div class="paragraph"><p>WebAssembly</p></div></div></div></section><section id="list_of_x_to_javascript"><h2>List of X to Javascript</h2><div class="imageblock" style=""><img src="images/list-of-langs-qr.png" alt="35%" width="35%"></div>
 <div class="paragraph"><p><a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js" class="bare">https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js</a></p></div></section></section>
 <section id="shameless_plug"><h2>Shameless Plug</h2><aside class="notes"><div class="paragraph"><p>If you find this project interesting, you can contribute to the code through it&#8217;s repo on github, or by encouraging me
@@ -322,7 +325,7 @@ with your projects.</p></div></aside>
 <div class="paragraph"><p><span class="icon"><i class="fa fa-envelope"></i></span> <a href="mailto:yoav.luft@gmail.com">yoav.luft@gmail.com</a></p></div>
 <div class="paragraph"><p><span class="image"><img src="images/prototyp.svg" alt="prototyp"></span></p></div></section>
 <section id="thank_you"><h2>Thank you!</h2></section>
-<section id="questions"><h2>Questions?</h2></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+<section id="questions"><h2>Questions?</h2></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,
@@ -406,11 +409,11 @@ Reveal.initialize({
 
   // Optional libraries used to extend on reveal.js
   dependencies: [
-      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
-      { src: 'reveal.js/plugin/notes/notes.js', async: true }
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/zoom-js/zoom.js', async: true },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/notes/notes.js', async: true }
   ]
 });</script></body></html>
