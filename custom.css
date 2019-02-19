@@ -40,3 +40,20 @@
   background-color: lightgrey;
   padding: 4px;
   border: 0;                   }
+
+.reveal section .no-border-transparent img {
+  background-color: transparent;
+  padding: 4px;
+  border: 0;                   }
+
+.reveal .lightblue {
+  color: #42affa }
+
+.reveal blockquote p {
+  font-size: 0.9em;  }
+
+.reveal .quoteblock .attribution {
+  font-size: 70%;                }
+
+.reveal .shaded {
+  background-color: rgba(20,20,20,0.3); }

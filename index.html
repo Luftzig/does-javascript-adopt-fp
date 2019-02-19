@@ -5,31 +5,31 @@ link.href = window.location.search.match( /print-pdf/gi ) ? "https://cdnjs.cloud
 document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="custom.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Does JavaScript Adopt Functional Programming?</h1><div class="preamble"><div class="paragraph"><p><span class="icon"><i class="fa fa-twitter"></i></span> @luftyoav</p></div>
 <div class="paragraph"><p><span class="icon"><i class="fa fa-envelope"></i></span> <a href="mailto:yoav.luft@gmail.com">yoav.luft@gmail.com</a></p></div>
 <aside class="notes"><div class="paragraph"><p>Hello! My name is Yoav Luft and today I&#8217;m going to talk about whether the JavaScript community adopts functional
-programming or not.</p></div>
-<div class="paragraph"><p>The talk will be divided into 4 parts:</p></div></aside></div><p class="author"><small>Yoav Luft</small></p></section>
-<section id="table_of_contents"><h2>Table of Contents</h2><div class="ulist"><ul><li><p>Why should we care about JavaScript?</p></li><li><p>What "adopting functional programming" even means?</p></li><li><p>Where is the evidence?</p></li><li><p>What&#8217;s next?</p></li></ul></div>
-<aside class="notes"><div class="ulist"><ul><li><p>Why should we care about JavaScript?</p></li><li><p>What "adopting functional programming" even mean?</p></li><li><p>Where is the evidence?</p></li><li><p>What&#8217;s next?</p></li></ul></div>
-<div class="paragraph"><p>and finally,</p></div></aside></section>
-<section><section id="spoiler_alert"><h2>Spoiler Alert</h2><div class="videoblock stretch"><video src="images/spoilers.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div><aside class="notes"><div class="paragraph"><p>In case you just can&#8217;t contain your curiosity, here&#8217;s the short version:</p></div></aside></section><section id="javascript_becomes_more_declarative"><h2>JavaScript becomes more declarative</h2><div class="openblock fragment"><div class="content"><div class="paragraph"><p>100 top projects</p></div></div></div>
+programming or not.</p></div></aside></div><p class="author"><small>Yoav Luft</small></p></section>
+<section><section id="the_beginning" data-background-image="images/sunrise.jpg" data-background-size="cover"><h2>The Beginning</h2><aside class="notes"><div class="paragraph"><p>About five years ago I worked for company that processed huge amounts of data on distributed Python servers. Hoping to
+improve performance, I came along Erlang and Elixir, which introduced me to functional programming. Combined with my
+passion for clean and verifiable code, and the trust I put into formal methods, I quickly found myself sucked to the
+world of functional programming, and especially Haskell and Elm.</p></div></aside></section><section id="the_conflict" data-background-image="images/angry-husky.jpg" data-background-size="cover"><h2>The Conflict</h2>
+<aside class="notes"><div class="paragraph"><p>But one workplace later I met a group of developers who were not impressed by my Functional-Fu and my declarative-jutsu.
+In fact, they complained that my code is too declarative! This through me off balance, and made me ask, "Is Functional
+Programming Really is the future of JavaScript?"</p></div></aside></section><section id="resolution" data-background-image="images/bookcase.jpg" data-background-size="cover"><h2>Resolution</h2>
+<div class="paragraph fragment"><p>?</p></div>
+<aside class="notes"><div class="paragraph"><p>This talk is based on a research I&#8217;m conducting on coding style in Javascript. I conduct the
+research independently but under the supervision of Prof. Feitelson from the Hebrew University of
+Jerusalem. The results that I&#8217;ll show today are preliminary, and we&#8217;ll be subject to more thorough
+investigation.</p></div></aside></section></section>
+<section><section id="short_version"><h2>Short Version</h2><aside class="notes"><div class="paragraph"><p>In case you just can&#8217;t contain your curiosity, here&#8217;s the short version:</p></div></aside></section><section id="javascript_becomes_more_declarative"><div class="openblock fragment"><div class="content"><div class="paragraph"><p>100 top projects</p></div></div></div>
 <div class="openblock fragment"><div class="content"><div class="paragraph"><p><span class="icon"><i class="fa fa-plus"></i></span></p></div>
 <div class="paragraph"><p>Analyzing the Code</p></div></div></div>
 <div class="openblock fragment"><div class="content"><div class="paragraph"><p><strong>=</strong></p></div>
 <div class="paragraph"><p>JavaScript Becomes <span class="line-through">Functional</span> Declarative</p></div></div></div>
-<aside class="notes"><div class="paragraph"><p>This talk is based on a research I&#8217;m conducting on coding style in Javascript. I conduct the
-research independently but under the supervision of Prof. Feitelson from the Hebrew University of
-Jerusalem. The results that I&#8217;ll show today are preliminary, and we&#8217;ll be subject to more thorough
-investigation.</p></div>
-<div class="paragraph"><p>By looking at Github&#8217;s one hundred most popular javascript projects, analyzing their code and
+<aside class="notes"><div class="paragraph"><p>By looking at Github&#8217;s one hundred most popular javascript projects, analyzing their code and
 dependencies, I feel quite convinced that as the years go on, the Javascript community is adopting a
 more declarative programming style.</p></div>
 <div class="paragraph"><p>How did I manage to get to this conclusion? What it has to do with functional programming, and why even look at
 javascript and not, say, C#? All of that and more, next.</p></div>
-<div class="paragraph"><p>But first,</p></div></aside></section></section>
-<section><section id="introduction"><h2>Introduction</h2><div class="videoblock stretch"><video src="images/allow-me-to-introduce.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div><aside class="notes"><div class="paragraph"><p>Before we&#8217;ll jump into the waters of code analysis, allow me to introduce myself:</p></div></aside></section><section><aside class="notes"><div class="paragraph"><p>About five years ago I worked for company that processed huge amounts of data on distributed Python servers. Hoping to
-improve performance, I came along Erlang and Elixir, which introduced me to functional programming. Combined with my
-passion for clean and verifiable code, and the trust I put into formal methods, I quickly found myself sucked to the
-world of functional programming, and especially Haskell and Elm.</p></div>
-<div class="paragraph"><p>I&#8217;m Yoav Luft, born and raised in Israel, currently living with my partner Dafna in Stockholm Sweden. I&#8217;ve have been
+<div class="paragraph"><p>But first,</p></div></aside></section><section id="the_end"><h2>The End!</h2><div class="videoblock"><video src="images/end.mp4" width="background" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div></section></section>
+<section><section id="introduction"><h2>Introduction</h2><aside class="notes"><div class="paragraph"><p>I&#8217;m Yoav Luft, born and raised in Israel, currently living with my partner Dafna in Stockholm Sweden. I&#8217;ve have been
 programming professionally for the last ten or so years, working mostly with web applications but also with games,
 embedded systems and other bits&#8217;n&#8217;pieces.</p></div>
 <div class="paragraph"><p>Other than programming itself, I&#8217;m also involved with the programming community as much as I can. In Israel I&#8217;ve founded
@@ -37,19 +37,22 @@ embedded systems and other bits&#8217;n&#8217;pieces.</p></div>
 <div class="paragraph"><p>I&#8217;ve organized the Elm users group meetups for a while, and I was part of the organizing team of
 "HackExtend", a diversity centered hackathon founded by my partner Dafna and friends.</p></div>
 <div class="paragraph"><p>I currently work for the digital agency "Prototyp", a code lab that build code for costumers that want to break new
-grounds.</p></div></aside>
-<div class="openblock fragment"><div class="content"><div class="paragraph"><p>Yoav Luft</p></div></div></div>
-<div class="openblock fragment"><div class="content"><div class="paragraph"><p>Web Dev - Games - Embedded</p></div></div></div>
-<div class="openblock fragment"><div class="content"><div class="paragraph"><p>Founded FLIP - Functional Programming conference in Israel</p></div></div></div>
-<div class="openblock fragment"><div class="content"><div class="paragraph"><p>Meetups and Hackathons: Elm TLV, HackExtend</p></div></div></div>
-<div class="openblock fragment"><div class="content"><div class="paragraph"><p>Prototyp.se</p></div></div></div></section></section>
-<section id="why_should_we_care_about_javascript"><h2>Why should we care about JavaScript?</h2><div class="imageblock" style=""><img src="images/JavaScript-logo.png" alt="50%" width="50%"></div>
+grounds.</p></div></aside><div class="openblock fragment half float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/me.jpg" alt="Me!" width="auto" height="300"></div>
+<div class="paragraph"><p>Yoav Luft</p></div></div></div><div class="openblock fragment half float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/zengarden.png" alt="Zen Garden" width="auto" height="300"></div>
+<div class="paragraph"><p>Web Dev - Games - Embedded</p></div></div></div></section><section id="introduction_ii"><div class="openblock fragment half float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/flip.png" alt="FLIP" width="auto" height="250"></div></div></div>
+<div class="openblock fragment half float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/hackextend.png" alt="HackExtend" width="auto" height="250"></div></div></div>
+<div class="paragraph"><p><br/></p></div>
+<div class="openblock fragment stretch"><div class="content"><div class="imageblock no-border-transparent" style=""><img src="images/prototyp-white.png" alt="Prototyp" width="300"></div></div></div></section></section>
+<section id="table_of_contents"><h2>Table of Contents</h2><div class="ulist step"><ul><li class="fragment"><p>Why should we care about JavaScript?</p></li><li class="fragment"><p>What "adopting functional programming" even means?</p></li><li class="fragment"><p>The Quest for Data</p></li><li class="fragment"><p>What&#8217;s next?</p></li></ul></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Why should we care about JavaScript?</p></li><li><p>What "adopting functional programming" even mean?</p></li><li><p>Where is the evidence?</p></li><li><p>What&#8217;s next?</p></li></ul></div>
+<div class="paragraph"><p>and finally,</p></div></aside></section>
+<section id="why_should_we_care_about_javascript"><div class="imageblock no-border-transparent" style=""><img src="images/JavaScript-question.png" alt="Javscript Why?" width="50%" height="50%"></div>
 <aside class="notes"><div class="paragraph"><p>Why should we even care about JavaScript? And especially, why should we talk about it in a functional programming
 conference?</p></div></aside></section>
 <section><section id="the_past_and_present_of_javascript"><h2>The Past and Present of Javascript</h2><aside class="notes"><div class="paragraph"><p>Let&#8217;s start with a brief history of JavaScript: Javascript was created at netscape in 1995 after Brenden Eich (AiK), who
 was originally hired to integrate Scheme into the Netscape Navigator, created a prototype in 10 days. It uses a
 curly-braces like syntax because management had decided that they want a Java-like programming language. It&#8217;s goal was
-to allow running programs in a web-browser, making web pages interactive, and allowing for a ubiquitous platform.</p></div></aside><div class="ulist step"><ul><li class="fragment"><p>Created at Netscape 1995 by Brenden Eich</p></li><li class="fragment"><p>Inspired by Scheme and Self</p></li><li class="fragment"><p>Design in just 10 days</p></li><li class="fragment"><p>But management wanted C/Java-like syntax</p></li></ul></div></section><section><aside class="notes"><div class="paragraph"><p>Javascript was created with imperative structural syntax similar to C, using control structures such as if-else blocks,
+to allow running programs in a web-browser, making web pages interactive, and allowing for a ubiquitous platform.</p></div></aside><div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/scheme_self.png" alt="Scheme and Self" width="auto" height="250"></div></div></div><div class="openblock fragment third float-left big"><div class="content"><div class="paragraph"><p><span class="icon"><i class="fa fa-plus"></i></span></p></div></div></div><div class="openblock fragment third float-right big"><div class="content"><div class="imageblock no-border" style=""><img src="images/Java_programming_language_logo.svg" alt="Java" width="auto" height="250"></div></div></div><div class="openblock fragment stretch big"><div class="content"><div class="paragraph"><p><span class="icon"><i class="fa fa-long-arrow-down"></i></span></p></div></div></div><div class="openblock fragment"><div class="content"><div class="imageblock no-border-transparent" style=""><img src="images/java_self.png" alt="JavaScript Weird" width="auto" height="250"></div></div></div></section><section><aside class="notes"><div class="paragraph"><p>Javascript was created with imperative structural syntax similar to C, using control structures such as if-else blocks,
 while and for loops. It has functions as first class citizens and supports closures. It is a universally typed language,
 aka "dynamically" typed, but also supports some version of object oriented structuring with the use of prototypical
 inheritance.</p></div></aside>
@@ -58,54 +61,62 @@ inheritance.</p></div></aside>
     action: function() { },
     data: [1, 2, 3]
   }
-
-console.log(object["name"] === object.name)</code></pre></div></div>
+JSON.stringify(object) ==
+  "{\"name\":\"Object1\",\"data\":[1,2,3]}"</code></pre></div></div></section><section id="delegation"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">function Dog() {
+  this.voice = "Woof!"
+  this.makeSound = function() {
+    return this.voice
+  }
+}
+var dog = new Dog
+var cat = {voice: "Prrrr",
+           makeSound: dog.makeSound}
+cat.makeSound() == "Prrrr"</code></pre></div></div>
 <aside class="notes"><div class="paragraph"><p>It uses the hashmap as its fundamental data-type, which can also be encoded to a data transfer representation, the JSON
 format. It uses late-binding, and allows delegation by the use of the "this" keyword, a feature notoriously confusing
 for programmers who come from other imperative-object-oriented languages such as Java.</p></div>
-<div class="paragraph"><p>Ölbaum[<a href="https://twitter.com/oscherler/status/660049264903643136?lang=en" class="bare">https://twitter.com/oscherler/status/660049264903643136?lang=en</a>]</p></div></aside></section><section><div class="imageblock" style=""><img src="images/olabums-tweet-safe.png" alt="olabums tweet safe"></div><div class="title">Figure 1. Ölbaum&#8217;s</div>
+<div class="paragraph"><p>Ölbaum[<a href="https://twitter.com/oscherler/status/660049264903643136?lang=en" class="bare">https://twitter.com/oscherler/status/660049264903643136?lang=en</a>]</p></div></aside></section><section><div class="imageblock" style=""><img src="images/olabums-tweet-safe.png" alt="olabums tweet safe"></div>
 <aside class="notes"><div class="paragraph"><p>Being supported on all web browsers, and also being a common backend language through frameworks such as Node.js has
-made Javascript extremely popular.</p></div></aside></section><section><aside class="notes"><div class="paragraph"><p>In StackOverflow&#8217;s yearly survey of 2018, Javascript was the most popular programming
+made Javascript extremely popular.</p></div></aside></section><section id=""><h2><span class="image no-border-transparent float-right"><img src="images/Stack_Overflow_logo.png" alt="StackOverflow" width="auto" height="64"></span></h2><aside class="notes"><div class="paragraph"><p>In StackOverflow&#8217;s yearly survey of 2018, Javascript was the most popular programming
 language with 69% of respondents claiming knowledge of the language
 [<a href="https://insights.stackoverflow.com/survey/2018/#most-popular-technologies" class="bare">https://insights.stackoverflow.com/survey/2018/#most-popular-technologies</a>].</p></div>
 <div class="paragraph"><p>It held this position for the last 6 years.
 The top 3 most popular frameworks in that same survey are all Javascript frameworks, with Node.js in the lead, which
 hints to the language&#8217;s popularity as a backend language.</p></div></aside>
-<div class="imageblock" style=""><img src="images/stack-overflow-2018-popular.png" alt="stack overflow 2018 popular"></div><div class="title">Figure 2. Stack Overflow&#8217;s 2018 Survey</div></section><section><aside class="notes"><div class="paragraph"><p>According the website SimilarTech, node.js is the third most popular server framework, after PHP, ASP.net. The fourth
+<div class="imageblock" style=""><img src="images/stack-overflow-2018-popular.png" alt="stack overflow 2018 popular"></div></section><section><aside class="notes"><div class="paragraph"><p>According the website SimilarTech, node.js is the third most popular server framework, after PHP, ASP.net. The fourth
 place is occupied by "express", which is a framework built over Node.js.
 [<a href="https://www.similartech.com/categories/framework" class="bare">https://www.similartech.com/categories/framework</a>].</p></div></aside>
-<div class="imageblock" style=""><img src="images/similar-tech.png" alt="similar tech"></div><div class="title">Figure 3. SimilarTech</div></section><section><aside class="notes"><div class="paragraph"><p>On Github, javascript has been the number one programming language for new repositories
+<div class="imageblock no-border-transparent" style=""><img src="images/similar-tech.png" alt="SimilarTech" width="110%"></div></section><section id=""><h2><span class="float-right"><span class="icon"><i class="fa fa-github"></i></span></span></h2><aside class="notes"><div class="paragraph"><p>On Github, javascript has been the number one programming language for new repositories
 in the last 4 years [<a href="https://octoverse.github.com/projects#languages" class="bare">https://octoverse.github.com/projects#languages</a>].
 Love it or hate it, being the only programming language supported by all web-browsers means that Javascript&#8217;s popularity
 is on the rise.</p></div></aside>
-<div class="imageblock" style=""><img src="images/github-survey.png" alt="github survey"></div><div class="title">Figure 4. Github&#8217;s Blog Octoverse</div></section><section><div class="videoblock stretch"><video src="images/why.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div>
-<aside class="notes"><div class="paragraph"><p>But then again, why should we care, when discussing Javascript in the context of functional programming?</p></div></aside></section></section>
+<div class="imageblock" style=""><img src="images/github-survey.png" alt="github survey"></div></section><section id="but_why_should_we_care"><h2>But why should we care?</h2><aside class="notes"><div class="paragraph"><p>But then again, why should we care, when discussing Javascript in the context of functional programming?</p></div></aside></section></section>
 <section><section id="javascript_for_functional_programming"><h2>JavaScript for Functional Programming</h2><aside class="notes"><div class="paragraph"><p>First and foremost, we should note that javascript is a very welcoming language for the flexible functional programmer:
 It supports anonymous functions and closures; It <strong>uses</strong> continuation passing and structured modeling of asynchronous code
-quite often;</p></div></aside><div class="paragraph"><p>Javascript has:</p></div><div class="ulist"><ul><li class="fragment"><p>anonymous functions</p></li><li class="fragment"><p>closures</p></li><li class="fragment"><p>uses continuation passing</p></li><li class="fragment"><p>structured modeling of async (almost monads!)</p></li></ul></div></section><section id="rapidly_evolving_standard"><h2>Rapidly Evolving Standard</h2><aside class="notes"><div class="paragraph"><p>And it&#8217;s rapidly evolving standard includes support for things such as shorthand notation for anonymous
-functions (already commonly used), destructuring assignments, constant references, generator functions, and there are
-even pending proposals for tail-call optimization, pipe-operator, partial application syntax and pattern matching.</p></div></aside>
-<div class="ulist checklist"><ul class="checklist"><li><p><i class="icon-check"></i>anonymous functions shorthand (2015)</p></li><li><p><i class="icon-check"></i>destructuring assignments (2015)</p></li><li><p><i class="icon-check"></i>generator functions (2015)</p></li><li><p><i class="icon-check-empty"></i>tail-call optimization (pending)</p></li><li><p><i class="icon-check-empty"></i>pipe-operator (pending)</p></li><li><p><i class="icon-check-empty"></i>partial application syntax (pending)</p></li><li><p><i class="icon-check-empty"></i>pattern matching (pending)</p></li></ul></div></section><section><div class="imageblock" style=""><img src="images/TC39.png" alt="50%" width="50%"></div><div class="title">Figure 5. ECMA Technical Commitee 39</div>
+quite often;</p></div></aside><div class="paragraph"><p>Javascript has:</p></div><div class="ulist"><ul><li class="fragment"><p>anonymous functions</p></li><li class="fragment"><p>closures</p></li><li class="fragment"><p>uses continuation passing</p></li><li class="fragment"><p>structured modeling of async (almost monads!)</p></li></ul></div></section><section><div class="imageblock" style=""><img src="images/TC39.png" alt="50%" width="50%"></div>
 <aside class="notes"><div class="paragraph"><p>It appears that many members of the EMCA Technical Commitee 39, the committee in charge of the javascript standard, would
 like to encourage functional programming style in javascript.
 As people interested in functional programming, I can only awesome that we would all like to use familiar and beloved
 programming style over an imperative, out-styled, and appearently more error prone style. This is especially true if our
-daily work requires writing code that would run on web browsers.</p></div></aside></section></section>
-<section><section id="what_does_adopting_functional_programming_even_mean"><h2>What does "Adopting functional programming" even mean?</h2></section><section><aside class="notes"><div class="paragraph"><p>Just a short google search with the words "Javascript functional programming" will turn out millions of results,
+daily work requires writing code that would run on web browsers.</p></div></aside></section><section id="rapidly_evolving_standard"><h2>Rapidly Evolving Standard</h2><aside class="notes"><div class="paragraph"><p>And it&#8217;s rapidly evolving standard includes support for things such as shorthand notation for anonymous
+functions (already commonly used), destructuring assignments, constant references, generator functions, and there are
+even pending proposals for tail-call optimization, pipe-operator, partial application syntax and pattern matching.</p></div></aside>
+<div class="ulist checklist"><ul class="checklist"><li><p><i class="icon-check"></i>anonymous functions shorthand (2015)</p></li><li><p><i class="icon-check"></i>destructuring assignments (2015)</p></li><li><p><i class="icon-check"></i>generator functions (2015)</p></li><li><p><i class="icon-check-empty"></i>tail-call optimization (pending)</p></li><li><p><i class="icon-check-empty"></i>pipe-operator (pending)</p></li><li><p><i class="icon-check-empty"></i>partial application syntax (pending)</p></li><li><p><i class="icon-check-empty"></i>pattern matching (pending)</p></li></ul></div></section></section>
+<section><section id="part_ii_what_does_adopting_functional_programming_even_mean"><h2>Part II: What does <br> <span class="lightblue">"Adopting functional programming"</span> <br> even mean?</h2></section><section><aside class="notes"><div class="paragraph"><p>Just a short google search with the words "Javascript functional programming" will turn out millions of results,
 and many of the top results are blog posts about Javascript, or functional programming in javascript.</p></div>
 <div class="paragraph"><p>But is that a proof that the community as a whole adopts functional programming? Or are these just functional
 programming eccentrics howling at the moon?</p></div></aside>
-<div class="imageblock" style=""><img src="images/google-js-fp.png" alt="google js fp"></div></section><section><aside class="notes"><div class="paragraph"><p>We can break our question to two parts:</p></div>
+<div class="imageblock no-border-transparent" style=""><img src="images/blogs.gif" alt="blogs"></div></section><section><aside class="notes"><div class="paragraph"><p>We can break our question to two parts:</p></div>
 <div class="paragraph"><p>Let&#8217;s start with "adopting"</p></div></aside>
 <div class="paragraph"><p><span class="fragment">Adopting</span> &#160; &#160; <span class="fragment">functional programming</span></p></div></section></section>
 <section><section id="adopting"><h2>Adopting</h2><div class="olist arabic"><ol class="arabic"><li class="fragment"><p>Functional programming was not popular, or formally accepted in Javascript</p></li><li class="fragment"><p>It is now becoming more popular, or being formally accepted</p></li></ol></div><aside class="notes"><div class="paragraph"><p>Above is the Merriam-Webster definition for adopting.</p></div>
-<div class="paragraph"><p>In adopting some programming style we imply two things:</p></div></aside></section><section><div class="imageblock" style=""><img src="images/piece-of-cake.gif" alt="piece of cake"></div></section></section>
+<div class="paragraph"><p>In adopting some programming style we imply two things:</p></div></aside></section><section data-background-image="images/piece-of-cake.gif" data-background-size="cover"></section></section>
 <section><section id="functional_programming"><h2>Functional Programming</h2><aside class="notes"><div class="paragraph"><p>Now let us look at the second part of my statement: <strong>Functional programming</strong>.</p></div>
 <div class="paragraph"><p>What is, exactly, functional programming? How can we define it, and how can we turn such definition to concrete test
 cases that we can use to determine "how much" Javascript is functional programming?</p></div></aside></section><section id="how_much_is_javascript_functional_programming"><h2>How much is JavaScript functional programming</h2><aside class="notes"><div class="paragraph"><p>When in doubt regarding definitions, I do what every millennial does: I look it up in wikipedia. The wikipedia
 definition was a bit mouthful, I will not read it out loud, but just notice the underlined bits:</p></div></aside>
 <div class="olist arabic step"><ol class="arabic"><li class="fragment"><p>Computation as the evaluation of mathematical functions</p></li><li class="fragment"><p>Avoids changing-state and mutable-data</p></li><li class="fragment"><p>Declarative programming paradigm</p></li></ol></div></section><section id="criteria"><h2>Criteria</h2><aside class="notes"><div class="paragraph"><p>Let&#8217;s see if we can turn them into criteria for estimating how "functional" is a language or a piece of code.</p></div></aside>
-<div class="videoblock stretch"><video src="images/chosen.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div></section><section id="computation_of_mathematical_functions"><h2>Computation of Mathematical Functions</h2><aside class="notes"><div class="paragraph"><p>Let&#8217;s start with "Computation as the evaluation of mathematical functions". What are "mathematical functions" in this
+<div class="videoblock stretch"><video src="images/chosen.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div></section><section id="criterion_1_computation_of_mathematical_functions"><h2>Criterion 1: <br/> Computation of Mathematical Functions</h2><aside class="notes"><div class="paragraph"><p>Let&#8217;s start with "Computation as the evaluation of mathematical functions". What are "mathematical functions" in this
 context? Again, from definitions, a mathematical functions is a relation from a set of input to a
 set of possible outputs where each input is related to exactly one output.</p></div>
 <div class="paragraph"><p>OK! That&#8217;s tangible! Let&#8217;s try and formalize this to a criterion:</p></div>
@@ -118,14 +129,12 @@ set of possible outputs where each input is related to exactly one output.</p></
 }
 var a1 = [1, 2]
 var a2 = append(a1, 3)
-// a1 == [1, 2]; a2 == [1, 2, 3]</code></pre></div></div>
-<div class="paragraph"><p>Non-mathematical</p></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var array = [1, 2]
+// a1 == [1, 2]; a2 == [1, 2, 3]</code></pre></div></div></section><section id="non_mathematical"><h2>Non-mathematical</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var array = [1, 2]
 function append(x) {
   array.push(x)
 }
 append(3) // undefined -&gt; no return
-          // array == [1, 2, 3]</code></pre></div></div></section><section id="avoid_changing_state_and_mutable_data"><h2>Avoid changing state and mutable-data</h2><div class="paragraph"><p><span class="image"><img src="images/smoke.jpg" alt="cover"></span></p></div>
+          // array == [1, 2, 3]</code></pre></div></div></section><section id="criterion_2_avoid_changing_state_and_mutable_data" data-background-image="images/smoke.jpg" data-background-size="cover"><h2>Criterion 2: <br/> Avoid changing state and mutable-data</h2>
 <aside class="notes"><div class="paragraph"><p>I think this one is both simple and complex at the same time. It is simple because mutability and changing state are
 strongly related, and very intuitive to grasp. This is complex because [a] all useful programs perform state changes; [b]
 it is difficult to tell apart, when doing static analysis of code, whether a data mutation is done in-order to achieve a
@@ -133,12 +142,12 @@ desired side-effect or whether it is due to the implementation of an algorithm.<
 <div class="paragraph"><p>Luckily for us, we&#8217;ve got some help: Many javascript projects use 3rd party packages to provide immutable data structures.
 Javascript also added the "const" keyword for immutable reference, and the <code>Object.freeze()</code> method for making
 objects immutable at runtime. All three can be good and easy to gather indicators for how immutability is common in
-javascript.</p></div></aside></section></section>
-<section><section id="declarative_programming_paradigm"><h2>Declarative Programming Paradigm</h2><aside class="notes"><div class="paragraph"><p>And last but not least, we can look at whether projects adopt a declarative style of programming. Again, a definition is
+javascript.</p></div></aside></section><section id="immutability"><h2>Immutability</h2><div class="imageblock no-border" style=""><img src="images/immutablejs.png" alt="immutablejs"></div></section></section>
+<section><section id="criterion_3_declarative_programming_paradigm"><h2>Criterion 3: <br/> Declarative Programming Paradigm</h2><aside class="notes"><div class="paragraph"><p>And last but not least, we can look at whether projects adopt a declarative style of programming. Again, a definition is
 in order:</p></div>
 <div class="paragraph"><p>While this might sound as vague as the previous definitions, I find that the last bit in there is key:</p></div></aside><div class="quoteblock"><blockquote><div class="paragraph"><p>a style of building the structure and elements of computer programs—that expresses the logic of a computation without
 describing its control flow.</p></div></blockquote><div class="attribution">&#8212; Wikipedia</div></div></section><section><div class="quoteblock"><blockquote><div class="paragraph"><p>[&#8230;&#8203;] without describing its control flow.</p></div></blockquote></div>
-<aside class="notes"><div class="paragraph"><p>Javascript, being a language that uses C style imperative structures, comes with a nice set of control flow structures:</p></div></aside></section><section id="while_loops"><h2>While loops</h2><div class="listingblock"><div class="title">While Loops</div><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">while (condition) {
+<aside class="notes"><div class="paragraph"><p>Javascript, being a language that uses C style imperative structures, comes with a nice set of control flow structures:</p></div></aside></section><section id="while_loops"><h2>While loops</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">while (condition) {
   doAction()
 }
 
@@ -146,7 +155,7 @@ do {
   action()
 } while (condition)</code></pre></div></div></section><section id="for_loops"><h2>For loops</h2><aside class="notes"><div class="paragraph"><p>Not one, not two, but three different kinds of for loops:</p></div>
 <div class="paragraph"><p>Do not worry yourselves about the differences between the two last examples, it is not that important.</p></div></aside>
-<div class="listingblock"><div class="title">For Loops</div><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">for (var i = 0; i &lt; size; i++) {
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">for (var i = 0; i &lt; size; i++) {
   use(i)
 }
 for (var property in object) {
@@ -175,10 +184,9 @@ var a = condition ? val1 : val2</code></pre></div></div>
     return false
   default:
     return undefined
-}</code></pre></div></div></section><section id="iteration_functions"><h2>Iteration functions</h2><aside class="notes"><div class="paragraph"><p>Luckily for us, looping constructs do have good alternatives: The javascript Array object offers 4 familiar and useful
+}</code></pre></div></div></section><section id="but_which"><h2>But Which?</h2></section><section id="iteration_functions"><h2>Iteration functions</h2><aside class="notes"><div class="paragraph"><p>Luckily for us, looping constructs do have good alternatives: The javascript Array object offers 4 familiar and useful
 functions: <code>map</code>, <code>filter</code>, <code>forEach</code> and <code>reduce</code>. Here&#8217;s a small examples of some of them:</p></div></aside>
-<div class="paragraph"><p><code>map</code>, <code>filter</code>, <code>forEach</code> and <code>reduce</code></p></div>
-<table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">Imperative</th><th class="tableblock halign-left valign-top">Declarative</th></tr><tbody><tr><td class="tableblock halign-left valign-top"><div><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var result
+<div class="paragraph"><p><code>map</code>, <code>filter</code>, <code>forEach</code> and <code>reduce</code></p></div></section><section id="examples"><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">Imperative</th><th class="tableblock halign-left valign-top">Declarative</th></tr><tbody><tr><td class="tableblock halign-left valign-top"><div><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var result
 for (var i of array) {
   result[i] = f(array[i])
 }</code></pre></div></div></div></td><td class="tableblock halign-left valign-top"><div><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var result = array.map(f)</code></pre></div></div></div></td></tr><tr><td class="tableblock halign-left valign-top"><div><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">var acc
@@ -194,24 +202,23 @@ such as <code>underscore</code>, <code>lodash</code> and <code>Ramda</code>. Com
 constructs required by javascript developers.</p></div>
 <div class="paragraph"><p>Because of these properties I&#8217;ve decided that looping constructs are the best candidates for measuring how much does
 Javascript adopts declarative programming.</p></div></aside></section></section>
-<section id="where_is_the_evidence"><h2>Where is the Evidence?</h2><div class="videoblock stretch"><video src="images/southpark-proof.mp4" width="100%" height="100%" data-autoplay loop>Your browser does not support the video tag.</video></div>
+<section id="part_iii_the_quest_for_data" data-background-image="images/adventure.jpg" data-background-size="cover"><h2>Part III: The Quest for Data</h2>
 <aside class="notes"><div class="paragraph"><p>I hope I did not bored you with this prolonged introduction. Armed with the understanding that while the question of
 whether Javascript goes functional or not is complicated, the question of whether it becomes more declarative is easier
 to answer. Now comes the search for data.</p></div></aside></section>
 <section><section id="methods"><h2>Methods</h2><aside class="notes"><div class="paragraph"><p>After consulting with Prof. Feitelson, I&#8217;ve decided to focus on projects which are:</p></div>
 <div class="paragraph"><p>By looking at how these projects evolve, we can gain insights into general trends in Javascript.
-I&#8217;ve decided to use Github&#8217;s one hundred most popular javascript projects, such as:</p></div></aside><div class="paragraph"><p>Projects which are:</p></div><div class="olist arabic"><ol class="arabic"><li><p>Open source</p></li><li><p>Have a lot of contributors</p></li><li><p>Have been around for a while</p></li></ol></div></section><section id="project_examples"><div class="paragraph"><p><span class="image no-border"><img src="images/angular.svg" alt="angular.js" width="150" height="150"></span>
+I&#8217;ve decided to use Github&#8217;s one hundred most popular javascript projects, such as:</p></div></aside><div class="paragraph"><p>Projects which are:</p></div><div class="olist arabic step"><ol class="arabic"><li class="fragment"><p>Open source</p></li><li class="fragment"><p>Have a lot of contributors</p></li><li class="fragment"><p>Have been around for a while</p></li></ol></div></section><section id="project_examples"><div class="paragraph"><p><span class="image no-border"><img src="images/angular.svg" alt="angular.js" width="150" height="150"></span>
 <span class="image no-border"><img src="images/threejs.png" alt="three.js" width="300" height="150"></span>
 <span class="image no-border"><img src="images/vue.png" alt="vue" width="150" height="150"></span>
 <span class="image no-border"><img src="images/d3.png" alt="d3" width="150" height="150"></span></p></div>
-<div class="ulist"><ul><li><p>Atom code editor</p></li><li><p>etc.</p></li></ul></div>
 <aside class="notes"><div class="paragraph"><p>Next, I&#8217;ve gathered metadata on each project, such as it&#8217;s number of stargazers and it&#8217;s number of forks,
 dependencies used and so on.</p></div>
 <div class="paragraph"><p>Finally, I&#8217;ve looked at the actual code. By selecting the last commit in each of the years 2009, 2012, 2015, and 2018, I
-would see into some of the trends in the overall Javascript programming style.</p></div></aside></section><section id="data_collection_process"><h2>Data Collection Process</h2><div class="imageblock" style=""><img src="images/method-graph.png" alt="data collection process" width="70%"></div>
+would see into some of the trends in the overall Javascript programming style.</p></div></aside></section><section id="data_collection_process" data-transition="fade-out"><h2>Data Collection Process</h2><div class="imageblock" style=""><img src="images/method-graph.png" alt="data collection process" width="70%"></div>
 <aside class="notes"><div class="paragraph"><p>Once the commits where selected, I&#8217;ve downloaded a snapshot of each repository at each of the target commits, and sent
 the content of the snapshot to a processing pipeline. The processing pipeline uses the Esprima parser to generate an
-Abstract Syntax Tree for each file, which was then searched for specific patterns.</p></div></aside></section><section id="terminology"><h2>Terminology</h2><div class="paragraph"><p>Project = A repository on Github</p></div>
+Abstract Syntax Tree for each file, which was then searched for specific patterns.</p></div></aside></section><section id="data_collection_process_1" data-transition="fade"><h2>Data Collection Process 1</h2><div class="imageblock" style=""><img src="images/method-graph-1.png" alt="data collection process" width="70%"></div></section><section id="data_collection_process_2" data-transition="fade"><h2>Data Collection Process 2</h2><div class="imageblock" style=""><img src="images/method-graph-2.png" alt="data collection process" width="70%"></div></section><section id="data_collection_process_3" data-transition="fade"><h2>Data Collection Process 3</h2><div class="imageblock" style=""><img src="images/method-graph-3.png" alt="data collection process" width="70%"></div></section><section id="terminology"><h2>Terminology</h2><div class="paragraph"><p>Project = A repository on Github</p></div>
 <div class="paragraph"><p>Sample = Data on patterns from a project&#8217;s snapshot</p></div>
 <div class="paragraph"><p>Sample Year = A sample from the specified year</p></div></section><section id="patterns_imperative"><h2>Patterns: Imperative</h2><aside class="notes"><div class="paragraph"><p>For each files of valid Javascript, I&#8217;ve looked for the following patterns:</p></div></aside>
 <div class="ulist"><ul><li><p>for loop, for..in loops, for..of loops</p></li></ul></div>
@@ -219,11 +226,12 @@ Abstract Syntax Tree for each file, which was then searched for specific pattern
 for (var i in object) {...}
 for (var i of array) {...}</code></pre></div></div>
 <div class="ulist"><ul><li><p>while and do-while loops</p></li></ul></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">while (cond) {...}</code></pre></div></div></section><section id="patterns_declarative"><h2>Patterns: Declarative</h2><div class="ulist"><ul><li><p>forEach calls:</p></li></ul></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">arr.forEach(f); _.forEach(arr, f); _.each(arr, f)</code></pre></div></div>
-<div class="ulist"><ul><li><p>map calls and aliases such as</p><div class="literalblock"><div class="content"><pre>`map`, `pluck`, `flatMap`, `collect`</pre></div></div></li><li><p>filter calls and aliases:</p><div class="literalblock"><div class="content"><pre>`filter`, `select`, `reject`, `where`</pre></div></div></li><li><p>reduce calls and aliases:</p><div class="literalblock"><div class="content"><pre>`reduce`, `reduceRight`, `foldl`, `foldr`</pre></div></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">while (cond) {...}</code></pre></div></div></section><section id="patterns_declarative"><h2>Patterns: Declarative</h2><div class="ulist"><ul><li><p>forEach calls</p></li></ul></div>
+<div class="ulist"><ul><li><p>map calls</p></li></ul></div>
+<div class="ulist"><ul><li><p>filter calls</p></li></ul></div>
+<div class="ulist"><ul><li><p>reduce calls</p></li></ul></div>
 <aside class="notes"><div class="paragraph"><p>After filtering some problematic repositories, I moved into analyzing the results.</p></div></aside></section></section>
-<section><section id="results"><h2>Results</h2><aside class="notes"><div class="paragraph"><p>Let&#8217;s start with a short survey of the projects:</p></div></aside><div class="imageblock" style=""><img src="images/results-bg.jpg" alt=".stretch"></div></section><section id="projects"><h2>Projects</h2><div class="imageblock" style=""><img src="images/num_projects_sample_year.png" alt="num projects sample year"></div>
+<section><section id="the_sample"><h2>The Sample</h2></section><section id="projects"><h2>Projects</h2><div class="imageblock" style=""><img src="images/num_projects_sample_year.png" alt="num projects sample year"></div>
 <aside class="notes"><div class="paragraph"><p>This graph shows how many samples we&#8217;ve managed to gather in each year, out of our initial one hundred repositories.
 We had only 3 samples from 2009, so this year will be discarded in future graphs, and we had 79 samples in 2018.</p></div></aside></section><section id="projects_by_age"><h2>Projects by Age</h2><div class="imageblock" style=""><img src="images/created_year_cdf.png" alt="created year cdf"></div>
 <aside class="notes"><div class="paragraph"><p>This brings the question of the age of the projects on Github. We can see that over half of them were created on Github
@@ -235,7 +243,8 @@ each sample. We can see that we&#8217;re dealing with magnitude of 3 million lin
 growth of Javascript from 2012 to 2015, almost tripling the number of lines of code, while doubling the number of files.</p></div>
 <div class="paragraph"><p>We can see that from 2015 to 2018 the number of lines of code grows more slowly, but the number of files keeps on
 growing steadily. This is an indication that code is broken into smaller files, maybe due to refactoring of the
-projects?</p></div></aside></section><section id="constructs_in_samples"><h2>Constructs in Samples</h2><div class="imageblock" style=""><img src="images/num_constructs_year.png" alt="num constructs year"></div>
+projects?</p></div></aside></section></section>
+<section><section id="results" data-background-image="images/cheers.jpg" data-background-size="cover"><h2>Results</h2><aside class="notes"></aside></section><section id="constructs_in_samples"><h2>Constructs in Samples</h2><div class="imageblock" style=""><img src="images/num_constructs_year.png" alt="num constructs year"></div>
 <aside class="notes"><div class="paragraph"><p>Next, we&#8217;ll look at the how common are different code constructs in different samples:</p></div>
 <div class="paragraph"><p>In this graph we see the count of each iteration construct across the three sample years. The top for are our impreative
 constructs, <code>while</code>, <code>for..of</code>, <code>for..in</code> and C-style <code>for</code>-loops. Beneath them are our declarative constructs:
@@ -256,8 +265,10 @@ last 6 years, while the use of <code>map</code> is slowly on the rise. Surprisng
 quite constants, being around 1% of all samples.</p></div>
 <div class="paragraph"><p>It seems like this supports the idea that javascript is moving to more declarative iteration constructs, but it seems
 like this process is not as fast as I originally had guessed. Let&#8217;s try and look what kind of projects change the
-most.</p></div></aside></section><section id="individual_projects"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_sample.png" alt="decl ratio per project sample"></div></section></section>
-<section><section id="individual_projects_2"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_over_time.png" alt="decl ratio per project over time"></div><aside class="notes"><div class="paragraph"><p>Sixty six of the projects appeared in more than one sample, meaning that we can track their individual development over
+most.</p></div></aside></section><section id="conclusions"><h2>Conclusions</h2><div class="paragraph fragment"><p>More Declarative Iteration!</p></div>
+<div class="paragraph fragment"><p><span class="small">but not that much&#8230;&#8203;</span></p></div></section><section id="individual_projects"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_sample.png" alt="decl ratio per project sample"></div></section></section>
+<section id="individual_projects_2"><h2>Individual Projects</h2><div class="imageblock" style=""><img src="images/decl_ratio_per_project_over_time.png" alt="decl ratio per project over time"></div>
+<aside class="notes"><div class="paragraph"><p>Sixty six of the projects appeared in more than one sample, meaning that we can track their individual development over
 time. To do that, I started by defining the projects "Declarative Index", which is the ratio of declarative iteration
 constructs out of the total number of constructs. A declarative index of "one" means that projects uses only declarative
 iteration constructs, while a "zero" means that only imperative constructs are used.</p></div>
@@ -265,7 +276,8 @@ iteration constructs, while a "zero" means that only imperative constructs are u
 projects create an upwards slope, meaning they go from imperative to declarative, this is not universally true.</p></div>
 <div class="paragraph"><p>I&#8217;ve plotted the mean declarative index as the magenta line, and we can see that over the last 6 years there&#8217;s an
 obvious trend where projects move to a higher declarative index, from approximately 0.4 in 2012 to almost 0.6 in 2018.</p></div>
-<div class="paragraph"><p>Is there anything that can predict whether a project will choose or turn to a more declarative style?</p></div></aside></section><section id="age_as_estimator"><h2>Age as Estimator</h2><div class="imageblock" style=""><img src="images/declarative_by_age.png" alt="declarative by age"></div>
+<div class="paragraph"><p>Is there anything that can predict whether a project will choose or turn to a more declarative style?</p></div></aside></section>
+<section><section id="what_kind_of_projects_are_declarative"><h2>What Kind of Projects Are Declarative?</h2></section><section id="age_as_estimator"><h2>Age as Estimator</h2><div class="imageblock" style=""><img src="images/declarative_by_age.png" alt="declarative by age"></div>
 <aside class="notes"><div class="paragraph"><p>By plotting the declarative index of a project in the last sample in which it appears against different properties of
 the project, we can hope to achieve some insight into which projects are more declarative.</p></div>
 <div class="paragraph"><p>In this graph we see the scatter of the projects index versus age and the regression line.</p></div>
@@ -281,25 +293,15 @@ stargazer of a project doesn&#8217;t have some inherent well understood meaning,
 <div class="paragraph"><p>Finally, let&#8217;s see how the number of contributors correlates with the projects "declarative index":</p></div></aside></section><section id="project_contributors"><h2>Project Contributors</h2><div class="imageblock" style=""><img src="images/declarative_by_contributors.png" alt="declarative by contributors"></div>
 <aside class="notes"><div class="paragraph"><p>Last property of project we&#8217;ll see today is the number of contributors, as reported by the projects main Github page.</p></div>
 <div class="paragraph"><p>From the number of contributors we can see that there is some correlation between more contributors and more declarative
-style of code. This might imply that the majority of JavaScript programmers prefer a declarative style of coding.</p></div></aside></section></section>
-<section><section id="supporting_libraries"><h2>Supporting Libraries</h2><aside class="notes"><div class="paragraph"><p>As we discussed earlier, the question of measuring "functional programming" of a project is more complicated. A possible
+style of code. This might imply that the majority of JavaScript programmers prefer a declarative style of coding.</p></div></aside></section><section id="conclusions_2"><h2>Conclusions</h2></section></section>
+<section id="supporting_libraries"><h2>Supporting Libraries</h2><aside class="notes"><div class="paragraph"><p>As we discussed earlier, the question of measuring "functional programming" of a project is more complicated. A possible
 indication can be the use of libraries that make a functional programming style more accessible in JavaScript, such as
 "underscore", "lodash" and "Ramda".</p></div>
 <div class="paragraph"><p>By looking at the dependencies of different projects, we can see whether they use one of these libraries or not. This
 graph shows the number of projects in each sample that had such a library as a dependency. We can see that while these
-libraries are on the rise, they are still being used in less than a quarter of the projects.</p></div></aside><div class="imageblock" style=""><img src="images/helpers_libs.png" alt="helpers libs"></div><div class="title">Figure 6. Helper Libraries Use</div></section><section id="immutability"><h2>Immutability</h2><div class="imageblock half float-left no-border" style=""><img src="images/fantasy-land.png" alt="fantasy land"></div>
-<div class="imageblock half float-right no-border" style=""><img src="images/static-land.png" alt="static land"></div>
-<div class="imageblock no-border" style=""><img src="images/immutablejs.png" alt="immutablejs"></div>
-<aside class="notes"><div class="paragraph"><p>There are some libraries which provide facilities for immutable data structures in JavaScript, and some libraries for
-advance data structures, such as Algebraic Data Types. Unfortunately, I couldn&#8217;t find any project in any sample who used
-such a library.</p></div></aside></section></section>
-<section id="whats_next"><h2>What&#8217;s Next</h2><aside class="notes"><div class="paragraph"><p>As for my research, there are some obvious steps forward:</p></div>
-<div class="ulist"><ul><li><p>The most obvious is to look at a larger sample.</p></li><li><p>I can also look at other structures, such as assignments and branching.</p></li><li><p>It might be possible to identify the uses of higher-order functions.</p></li><li><p>Or just examine specific examples in more detail, for example, determining how easy it is to refactor code from
-imperative to declarative style.</p></li><li><p>We can look at changes over time at the commit level: is code being refactored?</p></li><li><p>And finally, we can see whether projects migrate to functional languages.</p></li></ul></div>
-<div class="paragraph"><p>And of course, there are so many small improvements to make, such as supporting more flavors of JavaScript, and even
-looking at JavaScript&#8217;s typed superset, TypeScript.</p></div></aside>
-<div class="ulist step"><ul><li class="fragment"><p>Look at a larger sample</p></li><li class="fragment"><p>Examine more structures, e.g. assignments</p></li><li class="fragment"><p>Look at the use of higher-order functions</p></li><li class="fragment"><p>Examine results into more detail.</p></li><li class="fragment"><p>Examine changes of code over time</p></li><li class="fragment"><p>Look for projects migrating from Javascript to functional languages</p></li></ul></div></section>
-<section><section id="i_need_to_run_code_on_the_browser_what_are_my_options"><h2>I need to run code on the browser, what are my options?</h2><aside class="notes"><div class="paragraph"><p>Oh! Well, if you don&#8217;t like Javascript but need to write code that runs in a web browser there are several nice
+libraries are on the rise, they are still being used in less than a quarter of the projects.</p></div></aside>
+<div class="imageblock" style=""><img src="images/helpers_libs.png" alt="helpers libs"></div></section>
+<section><section id="whats_next" data-background-image="images/arrow.jpg" data-background-size="cover"><h2><span class="lightblue">What&#8217;s Next</span></h2></section><section id="what_are_your_options"><h2>What are your options?</h2><aside class="notes"><div class="paragraph"><p>Oh! Well, if you don&#8217;t like Javascript but need to write code that runs in a web browser there are several nice
 alterantives:</p></div>
 <div class="paragraph"><p>Elm: a small delightful language that IMHO solves many of the problems in web programming</p></div>
 <div class="paragraph"><p>ClojureScrip:  if you just can live another project without LISP</p></div>
@@ -310,25 +312,34 @@ Javascript.</p></div>
 <div class="paragraph"><p>100s of Language X to Javascripts: Hundreds of other programming languages that can compile themselves to Javascript,
 such as Haskell, Kotlin, Scala, Ruby, Python.</p></div>
 <div class="paragraph"><p>Google any word with "Script" as suffix or that is a pun on coffee and there&#8217;s probably a Javascript dialect or a
-language that transpiles to Javascript by that name.</p></div></aside><div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/Elm_logo.svg.png" alt="Elm" width="100" height="100"></div>
-<div class="paragraph"><p>Elm</p></div></div></div><div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/cljs.png" alt="ClojureScript" width="100" height="100"></div>
-<div class="paragraph"><p>ClojureScript</p></div></div></div><div class="openblock fragment third float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/PureScript_Logo.png" alt="PureScript" width="100" height="100"></div>
-<div class="paragraph"><p>PureScript</p></div></div></div><div class="openblock fragment half float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/reason.svg" alt="Reason" width="100" height="100"></div>
-<div class="paragraph"><p>Reason</p></div></div></div><div class="openblock fragment half float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/Web_Assembly_Logo.svg.png" alt="WebAssembly" width="100" height="100"></div>
-<div class="paragraph"><p>WebAssembly</p></div></div></div></section><section id="list_of_x_to_javascript"><h2>List of X to Javascript</h2><div class="imageblock" style=""><img src="images/list-of-langs-qr.png" alt="35%" width="35%"></div>
-<div class="paragraph"><p><a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js" class="bare">https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js</a></p></div></section></section>
+language that transpiles to Javascript by that name.</p></div></aside>
+<div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/Elm_logo.svg.png" alt="Elm" width="100" height="100"></div>
+<div class="paragraph"><p>Elm</p></div></div></div>
+<div class="openblock fragment third float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/cljs.png" alt="ClojureScript" width="100" height="100"></div>
+<div class="paragraph"><p>ClojureScript</p></div></div></div>
+<div class="openblock fragment third float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/PureScript_Logo.png" alt="PureScript" width="100" height="100"></div>
+<div class="paragraph"><p>PureScript</p></div></div></div>
+<div class="openblock fragment half float-left"><div class="content"><div class="imageblock no-border" style=""><img src="images/reason.svg" alt="Reason" width="100" height="100"></div>
+<div class="paragraph"><p>Reason</p></div></div></div>
+<div class="openblock fragment half float-right"><div class="content"><div class="imageblock no-border" style=""><img src="images/Web_Assembly_Logo.svg.png" alt="WebAssembly" width="100" height="100"></div>
+<div class="paragraph"><p>WebAssembly</p></div></div></div></section><section id="as_for_me" data-background-image="images/road.jpg" data-background-size="cover"><h2>As for me&#8230;&#8203;</h2>
+<aside class="notes"><div class="paragraph"><p>As for my research, there are some obvious steps forward:</p></div>
+<div class="ulist"><ul><li><p>The most obvious is to look at a larger sample.</p></li><li><p>I can also look at other structures, such as assignments and branching.</p></li><li><p>It might be possible to identify the uses of higher-order functions.</p></li><li><p>Or just examine specific examples in more detail, for example, determining how easy it is to refactor code from
+imperative to declarative style.</p></li><li><p>We can look at changes over time at the commit level: is code being refactored?</p></li><li><p>And finally, we can see whether projects migrate to functional languages.</p></li></ul></div>
+<div class="paragraph"><p>And of course, there are so many small improvements to make, such as supporting more flavors of JavaScript, and even
+looking at JavaScript&#8217;s typed superset, TypeScript.</p></div></aside>
+<div class="ulist fragment step shaded"><ul><li class="fragment"><p>Look at a larger sample</p></li><li class="fragment"><p>Examine more structures, e.g. assignments</p></li><li class="fragment"><p>Look at the use of higher-order functions</p></li><li class="fragment"><p>Examine results into more detail.</p></li><li class="fragment"><p>Examine changes of code over time</p></li><li class="fragment"><p>Look for projects migrating from Javascript to functional languages</p></li></ul></div></section></section>
 <section id="shameless_plug"><h2>Shameless Plug</h2><aside class="notes"><div class="paragraph"><p>If you find this project interesting, you can contribute to the code through it&#8217;s repo on github, or by encouraging me
 to keep researching programming languages.</p></div>
 <div class="paragraph"><p>I work for Prototyp, where we &lt;put slogan here&gt;. We&#8217;re located in Stockholm and Barcelona and would be happy to help you
 with your projects.</p></div></aside>
 <div class="paragraph"><p><span class="icon"><i class="fa fa-twitter"></i></span> @luftyoav</p></div>
 <div class="paragraph"><p><span class="icon"><i class="fa fa-envelope"></i></span> <a href="mailto:yoav.luft@gmail.com">yoav.luft@gmail.com</a></p></div>
-<div class="paragraph"><p><span class="image"><img src="images/prototyp.svg" alt="prototyp"></span></p></div></section>
-<section id="thank_you"><h2>Thank you!</h2></section>
-<section id="questions"><h2>Questions?</h2></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+<div class="paragraph"><p><span class="image no-border-transparent"><img src="images/prototyp-white.png" alt="prototyp" width="50%"></span></p></div></section>
+<section id="thank_you"><h2>Thank you!</h2></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
-  controls: true,
+  controls: false,
   // Display a presentation progress bar
   progress: true,
   // Set a per-slide timing for speaker notes, null means none
